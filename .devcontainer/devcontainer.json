@@ -67,6 +67,7 @@
       "gradlew.bat": true,
       "build.gradle": true,
       "settings.gradle": true,
+      "**/vendordeps": true,
       "**/build": true,
       "**/Main.java": true
     }
