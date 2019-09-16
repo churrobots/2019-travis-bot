@@ -1,0 +1,74 @@
+{ 
+  "name": "TravisRobotContainer",
+  "dockerFile": "Dockerfile",
+
+  // Improve write performance for the ./build directory per advanced config
+  // recommendations in the VSCode remote container docs.
+  // https://code.visualstudio.com/docs/remote/containers-advanced#_improving-container-disk-performance
+  "workspaceMount": "src=${localWorkspaceFolder},dst=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
+  "runArgs": [
+    "-u",
+    "vscode",
+    "-v",
+    "wpilib-build-products:/workspace/build"
+  ],
+  "postCreateCommand": "sudo chown vscode:vscode build",
+
+  // Backe in all the default VSCode extensions that you'll want
+  // for doing FRC build work in Java.
+  "extensions": [
+    "vscjava.vscode-java-pack",
+    "vscjava.vscode-java-dependency",
+    "vscjava.vscode-java-test",
+    "wpilibsuite.vscode-wpilib",
+    "visualstudioexptteam.vscodeintellicode"
+  ],
+
+  // Create the VSCode default settings. Some of these are needed for
+  // proper running of the Java environment, some of them are optional
+  // for simply cleaning up the workspace
+  "settings": {
+
+    // These settings are required for the Java container environment.
+    "java.home": "/docker-java-home",
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.rendererType": "dom",
+
+    "files.exclude": {
+
+      // Prevent editing of typical hidden files for Java
+      // projects under source control.
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "bin/": true,
+      ".classpath": true,
+      ".project": true,
+      "**/.classpath": true,
+      "**/.project": true,
+      "**/.settings": true,
+      "**/.factorypath": true,
+
+      // Hide development environment settings to keep workspace clear
+      // of files that FRC students should not typically update.
+      "**/.gitignore": true,
+      "**/.devcontainer": true,
+      "**/.vscode": true,
+
+      // Hide build products and build settings to keep workspace clear
+      // of files that FRC students should not typically update.
+      "**/.wpilib": true,
+      "**/.gradle": true,
+      "**/gradle": true,
+      "gradlew": true,
+      "gradlew.bat": true,
+      "build.gradle": true,
+      "settings.gradle": true,
+      "**/build": true,
+      "**/Main.java": true
+    }
+  }
+}
