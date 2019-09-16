@@ -5,17 +5,15 @@
   // Improve write performance for the ./build directory per advanced config
   // recommendations in the VSCode remote container docs.
   // https://code.visualstudio.com/docs/remote/containers-advanced#_improving-container-disk-performance
-  "workspaceMount": "src=${localWorkspaceFolder},dst=/workspace,type=bind,consistency=cached",
   "workspaceFolder": "/workspace",
-  "runArgs": [
-    "-u",
-    "vscode",
-    "-v",
-    "wpilib-build-products:/workspace/build"
-  ],
+  "workspaceMount": "src=${localWorkspaceFolder},dst=/workspace,type=bind,consistency=cached",
   "postCreateCommand": "sudo chown vscode:vscode build",
+  "runArgs": [
+    "-u", "vscode",
+    "-v", "wpilib-build-products:/workspace/build"
+  ],
 
-  // Backe in all the default VSCode extensions that you'll want
+  // Include all the default VSCode extensions that you'll want
   // for doing FRC build work in Java.
   "extensions": [
     "vscjava.vscode-java-pack",
