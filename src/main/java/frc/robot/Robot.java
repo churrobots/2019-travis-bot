@@ -6,8 +6,6 @@ import frc.robot.OI;
 
 public class Robot extends TimedRobot {
 
-  private RobotMap _robotMap;
-
   @Override
   public void robotInit() {
     OI.connect(new RobotMap());
