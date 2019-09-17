@@ -1,24 +1,29 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.commands.StandStill;
 
-/**
- * Add your docs here.
- */
 public class Drivetrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
+  private DifferentialDrive _differentialDrive;
+  private PowerManager _powerManager;
+
+  public Drivetrain(SpeedControllerGroup leftMotors, SpeedControllerGroup rightMotors, PowerManager powerManager) {
+    leftMotors.setInverted(true);
+    rightMotors.setInverted(true);
+    _differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+    _powerManager = powerManager;
+  }
+
+  public void driveAsTank(double leftSpeed, double rightSpeed) {
+    double speedModifier = _powerManager.getDrivetrainPowerAllowance();
+    _differentialDrive.tankDrive(leftSpeed * speedModifier, rightSpeed * speedModifier);
+  }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new StandStill(this));
   }
 }

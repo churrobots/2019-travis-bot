@@ -1,12 +1,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
+import frc.robot.SpeedTarget;
 import frc.robot.subsystems.Drivetrain;
 
-public class DriveAsTank extends Command {
+public class DriveAsTankWithBooster extends Command {
 
-  public DriveAsTank(Drivetrain drivetrain) {
+  private Drivetrain _drivetrain;
+  private SpeedTarget _leftSpeedTarget;
+  private SpeedTarget _rightSpeedTarget;
+  private SpeedTarget _boostTarget;
+
+  public DriveAsTankWithBooster(Drivetrain drivetrain, SpeedTarget leftSpeedTarget, SpeedTarget rightSpeedTarget, SpeedTarget boostTarget) {
     requires(drivetrain);
+    _drivetrain = drivetrain;
+    _leftSpeedTarget = leftSpeedTarget;
+    _rightSpeedTarget = rightSpeedTarget;
+    _boostTarget = boostTarget;
   }
 
   // Called just before this Command runs the first time
@@ -17,14 +28,9 @@ public class DriveAsTank extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // double leftSpeed = -driverGamepad.getRawAxis(leftJoystickYAxis);
-    // double rightSpeed = -driverGamepad.getRawAxis(rightJoystickYAxis);
-    // double boost = driverGamepad.getRawAxis(rightAnalogTrigger);
-    // double brownoutModifier = this.getBrownoutModifer();
-    // double minSpeed = 0.50 * brownoutModifier;
-    // double maxSpeed = 1.00 * brownoutModifier;
-    // double speedModifier = minSpeed + boost * (maxSpeed - minSpeed);
-    // travisDrive.tankDrive(speedModifier * leftSpeed, speedModifier * rightSpeed);
+    double leftSpeed = _leftSpeedTarget.get() * _boostTarget.get();
+    double rightSpeed = _rightSpeedTarget.get() * _boostTarget.get();
+    _drivetrain.driveAsTank(leftSpeed, rightSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
