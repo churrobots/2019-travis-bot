@@ -15,7 +15,7 @@ ARG FRC_VENDOR_PATH=/home/$USERNAME/frc$FRC_YEAR
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
-  && apt-get -y install git procps lsb-release sudo \
+  && apt-get -y install git procps lsb-release sudo ssh \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
@@ -31,3 +31,6 @@ RUN chmod 0440 /etc/sudoers.d/$USERNAME
 RUN mkdir -p $FRC_VENDOR_PATH && cd $FRC_VENDOR_PATH \
   && wget https://github.com/CrossTheRoadElec/Phoenix-Releases/releases/download/Phoenix_v5.14.1.2/CTRE_Phoenix_FRC_nonWindows_5.14.1.zip \
   && unzip CTRE_Phoenix_FRC_nonWindows_5.14.1.zip
+
+USER $USERNAME
+RUN mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
