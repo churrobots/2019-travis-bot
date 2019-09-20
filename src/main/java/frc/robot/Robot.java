@@ -3,12 +3,28 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.OI;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Hatch;
+import frc.robot.subsystems.PowerManager;
 
 public class Robot extends TimedRobot {
 
+  private Drivetrain _drivetrain;
+  private Hatch _hatch;
+  private PowerManager _powerManager;
+  private OI _oi;
+
   @Override
   public void robotInit() {
-    OI.connect(new RobotMap());
+    RobotMap robotMap = new RobotMap();
+    _drivetrain = new Drivetrain(robotMap);
+    _hatch = new Hatch(robotMap);
+    _powerManager = new PowerManager(robotMap);
+    _oi = new OI(_drivetrain, _powerManager);
+    // Vision vision = new Vision(robotMap);
+    // vision.setDefaultCommand(new StreamVideo(vision));
+    // PowerManager powerrManager = new PowerManager(robotMap);
+    System.out.println("hello world");
   }
 
   @Override
@@ -26,6 +42,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    _oi.useAutonomousMode();
   }
 
   @Override
@@ -35,6 +52,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    _oi.useTeleopMode();
   }
 
   @Override

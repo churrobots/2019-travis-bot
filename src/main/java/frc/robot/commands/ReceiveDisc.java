@@ -8,20 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Hatch;
 
-public class StandStill extends Command {
-
-  private Drivetrain _drivetrain;
-
-  public StandStill(Drivetrain drivetrain) {
-    _drivetrain = drivetrain;
+public class ReceiveDisc extends Command {
+  public ReceiveDisc(Hatch hatch) {
+    requires(hatch);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _drivetrain.driveAsTank(0, 0);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -32,7 +29,7 @@ public class StandStill extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -44,6 +41,5 @@ public class StandStill extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
