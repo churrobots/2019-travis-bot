@@ -12,3 +12,10 @@
 # Todo
 
 * Figure out git credentials inside remote development containers. Docs: https://code.visualstudio.com/docs/remote/containers#_sharing-git-credentials-with-your-container
+* Design work session with students
+  1. Ensure basics of Classes and Functions
+  2. Discuss RobotMap (integers)
+  3. Design Subsystems
+  4. Foreach(subsystem) --> Design Commands
+    * bonus: can we set it up in ShuffleBoard easily?
+  5. Design OI mappings to Commands
