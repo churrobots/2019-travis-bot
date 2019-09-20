@@ -1,13 +1,25 @@
 # Getting Started
 
-1. Install Docker
-2. Install VSCode
-3. Install VSCode Remote Development Extension Pack
-3. Install Git
-4. Clone this repo locally
-5. Open the repo in VSCode
-6. VSCode will ask you to reopen in a Container; do that
-7. Click the "W" icon in the upper-right and run "Build Robot Code" to confirm its all good
+1. Make sure you can collaborate using Github.
+  * [Create a Github account](https://github.com/join) if you don't have one
+  * [Install Github Desktop](https://desktop.github.com/), or commandline if you prefer
+  * [Request to join our Github Organization](https://github.com/orgs/epa-robotics)
+  * [Clone the robot code](https://github.com/epa-robotics/travis-bot) using the green button
+
+2. Make sure you can run the development environment using Docker.
+  * If you have a Mac: [Install Docker Desktop for macOS](https://download.docker.com/mac/stable/Docker.dmg)
+  * If you have a PC: [Install Docker Desktop for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
+
+3. Make sure you can open the code using VSCode.
+  * [Install VSCode](https://code.visualstudio.com/download)
+  * Open VSCode → Click View...Extensions → Search for "Remote Development" → Click "Install"
+
+4. **You're ready to code!** Every time you want to edit/build/deploy to the robot, just:
+  * Open VSCode → Click on your robot code folder
+  * VSCode will show a popup in the bottom-right → Click "Reopen in Container"
+  * **Build:** Click the "W" icon in the upper-right → "WPILib: Build Robot Code"
+  * **Deploy:** Click the "W" icon in the upper-right → "WPILib: Deploy Robot Code"
+    * _Note: you need to be connected to the robot's wifi radio to do this_
 
 # Todo
 
