@@ -1,13 +1,8 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.DriveAsTankWithBooster;
-import frc.robot.commands.StreamVideo;
+import frc.robot.commands.DriveAsTank;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.PowerManager;
-import frc.robot.subsystems.Vision;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,54 +10,30 @@ import frc.robot.subsystems.Vision;
  */
 public class OI {
 
-  public static void connect(RobotMap robotMap) {
+  // TODO: send these in as DriverStation subsystem object
+  private final Gamepad _driverGamepad = new Gamepad(0);
+  private final Gamepad _operatorGamepad = new Gamepad(1);
+  private final Drivetrain _drivetrain;
+  private final PowerManager _powerManager;
 
-    Joystick driverGamepad = new Joystick(0);
-    Joystick operatorGamepad = new Joystick(1);
+  public OI(Drivetrain drivetrain, PowerManager powerManager) {
+    _drivetrain = drivetrain;
+    _powerManager = powerManager;
+  }
 
-    Button driverButtonA = new JoystickButton(driverGamepad, 1);
-    Button driverButtonB = new JoystickButton(driverGamepad, 2);
-    Button driverButtonC = new JoystickButton(driverGamepad, 3);
-    Button driverButtonD = new JoystickButton(driverGamepad, 4);
+  public void useAutonomousMode() {
+  }
 
-    Button operatorButtonA = new JoystickButton(operatorGamepad, 1);
-    Button operatorButtonB = new JoystickButton(operatorGamepad, 2);
-    Button operatorButtonC = new JoystickButton(operatorGamepad, 3);
-    Button operatorButtonD = new JoystickButton(operatorGamepad, 4);
-
-    Axis driverLeftYAxis = new Axis(driverGamepad, 1);
-    Axis driverRightYAxis = new Axis(driverGamepad, 5);
-    Axis driverLeftAnalogTrigger = new Axis(driverGamepad, 2);
-    Axis driverRightAnalogTrigger = new Axis(driverGamepad, 3);
-
-    Vision vision = new Vision(robotMap.cameraServer);
-    vision.setDefaultCommand(new StreamVideo(vision));
-
-    PowerManager powerManager = new PowerManager(robotMap.powerDistributionPanel);
-    Drivetrain drivetrain = new Drivetrain(robotMap.leftDriveMotors, robotMap.rightDriveMotors, powerManager);
-    drivetrain.setDefaultCommand(new DriveAsTankWithBooster(drivetrain, driverLeftYAxis, driverRightYAxis, driverRightAnalogTrigger));
-
-    // Shooter shooter = new Shooter(robotMap.conveyor, robotMap.flywheel, robotMap.hook);
+  public void useTeleopMode() {
+    _drivetrain.setDefaultCommand(new DriveAsTank(_drivetrain, _driverGamepad.leftYAxis, _driverGamepad.rightYAxis,
+        _driverGamepad.rightAnalogTrigger, _powerManager.getDrivetrainPowerAllocationTarget()));
+    // drivetrain.setDefaultCommand(new DriveAsTankWithBooster(drivetrain,
+    // driverLeftYAxis, driverRightYAxis, driverRightAnalogTrigger));
+    // Shooter shooter = new Shooter(robotMap.conveyor, robotMap.flywheel,
+    // robotMap.hook);
     // operatorButtonX.whenPressed(new PickUpBall(shooter));
     // operatorButtonX.whenReleased(new FoldShooter(shooter));
     // operatorButtonA.whenPressed(new ShootBall(shooter));
-
-  }
-
-  private static class Axis implements SpeedTarget {
-
-    private Joystick _gamepad;
-    private int _axis;
-
-    Axis(Joystick gamepad, int axis) {
-      _gamepad = gamepad;
-      _axis = axis;
-    }
-
-    public double get() {
-      return _gamepad.getRawAxis(_axis);
-    }
-
   }
 
 }
