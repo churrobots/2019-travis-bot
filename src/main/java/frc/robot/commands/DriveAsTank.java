@@ -31,13 +31,12 @@ public class DriveAsTank extends Command {
   @Override
   protected void execute() {
 
-    System.out.println("joy:" + String.format("%s %s", _leftSpeedTarget.get(), _rightSpeedTarget.get()));
-    System.out.println("boost & power:" + String.format("%s %s", _boostTarget.get(), _powerAllocationTarget.get()));
     double minSpeed = 0.7;
     double boostModifier = _boostTarget.get() * (1 - minSpeed) + minSpeed;
     double leftSpeed = _leftSpeedTarget.get() * boostModifier * _powerAllocationTarget.get();
     double rightSpeed = _rightSpeedTarget.get() * boostModifier * _powerAllocationTarget.get();
-    _drivetrain.driveAsTank(leftSpeed, rightSpeed);
+    _drivetrain.tankDrive(leftSpeed, rightSpeed);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -56,6 +55,6 @@ public class DriveAsTank extends Command {
   @Override
   protected void interrupted() {
     _stoppedMotors = true;
-    _drivetrain.driveAsTank(0, 0);
+    _drivetrain.tankDrive(0, 0);
   }
 }

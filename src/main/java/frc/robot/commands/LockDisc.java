@@ -1,21 +1,14 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.Hatch;
 
-public class ReceiveDisc extends Command {
+public class LockDisc extends Command {
 
   private Hatch _hatch;
 
-  public ReceiveDisc(Hatch hatch) {
+  public LockDisc(Hatch hatch) {
     requires(hatch);
     _hatch = hatch;
   }
@@ -23,8 +16,8 @@ public class ReceiveDisc extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _hatch.beak.set(Value.kReverse);
-    _hatch.puncher.set(Value.kReverse);
+    _hatch.beak.set(Value.kForward);
+    _hatch.puncher.set(Value.kForward);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,7 +28,7 @@ public class ReceiveDisc extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

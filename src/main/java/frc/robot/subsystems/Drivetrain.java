@@ -25,7 +25,7 @@ public class Drivetrain extends Subsystem {
   
   }
 
-  public void driveAsTank(double leftSpeed, double rightSpeed) {
+  public void tankDrive(double leftSpeed, double rightSpeed) {
     _differentialDrive.tankDrive(leftSpeed, rightSpeed);
   }
 

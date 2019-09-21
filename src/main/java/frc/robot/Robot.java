@@ -20,11 +20,7 @@ public class Robot extends TimedRobot {
     _drivetrain = new Drivetrain(robotMap);
     _hatch = new Hatch(robotMap);
     _powerManager = new PowerManager(robotMap);
-    _oi = new OI(_drivetrain, _powerManager);
-    // Vision vision = new Vision(robotMap);
-    // vision.setDefaultCommand(new StreamVideo(vision));
-    // PowerManager powerrManager = new PowerManager(robotMap);
-    System.out.println("hello world");
+    _oi = new OI(_drivetrain, _hatch, _powerManager);
   }
 
   @Override

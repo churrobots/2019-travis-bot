@@ -22,7 +22,7 @@ public class StopDriving extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _drivetrain.driveAsTank(0, 0);
+    _drivetrain.tankDrive(0, 0);
   }
 
   // Called repeatedly when this Command is scheduled to run
