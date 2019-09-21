@@ -15,6 +15,15 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
+
+  // Ensure builds don't require internet connection, since we might not
+  // have that connection at competition.
+  "wpilib.offline": true,
+
+  // Keep workspace clean. Don't show git branch since we want to generally
+  // keep workflow in Github Desktop for consistency.
   "wpilib.autoStartRioLog": false,
-  "wpilib.offline": true
+  "git.enabled": false,
+  "scm.alwaysShowProviders": false
+
 }
