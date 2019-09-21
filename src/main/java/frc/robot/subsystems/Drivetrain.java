@@ -18,9 +18,6 @@ public class Drivetrain extends Subsystem {
     SpeedController rightMotors = new SpeedControllerGroup(robotMap.rightTalonMotor, robotMap.rightVictorMotorA,
         robotMap.rightVictorMotorB);
 
-    leftMotors.setInverted(true);
-    rightMotors.setInverted(true);
-
     _differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
   
   }
