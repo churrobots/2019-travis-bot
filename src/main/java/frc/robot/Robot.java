@@ -6,12 +6,14 @@ import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hatch;
 import frc.robot.subsystems.PowerManager;
+import frc.robot.subsystems.Shooter;
 
 public class Robot extends TimedRobot {
 
   private Drivetrain _drivetrain;
   private Hatch _hatch;
   private PowerManager _powerManager;
+  private Shooter _shooter;
   private OI _oi;
 
   @Override
@@ -20,7 +22,8 @@ public class Robot extends TimedRobot {
     _drivetrain = new Drivetrain(robotMap);
     _hatch = new Hatch(robotMap);
     _powerManager = new PowerManager(robotMap);
-    _oi = new OI(_drivetrain, _hatch, _powerManager);
+    _shooter = new Shooter(robotMap);
+    _oi = new OI(_drivetrain, _hatch, _powerManager, _shooter);
   }
 
   @Override
