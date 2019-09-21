@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -21,10 +22,12 @@ public class Shooter extends Subsystem {
 
   public SpeedController conveyor;
   public SpeedController flywheel;
+  public DoubleSolenoid wrist;
 
   public Shooter(RobotMap robotMap) {
     conveyor = robotMap.conveyor;
     flywheel = robotMap.flywheel;
+    wrist = robotMap.wrist;
   }
 
   @Override

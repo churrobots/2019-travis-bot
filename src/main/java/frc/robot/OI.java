@@ -3,6 +3,8 @@ package frc.robot;
 import frc.robot.commands.DriveAsTank;
 import frc.robot.commands.LockDisc;
 import frc.robot.commands.ManualShooting;
+import frc.robot.commands.PunchIn;
+import frc.robot.commands.PunchOut;
 import frc.robot.commands.ReceiveDisc;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hatch;
@@ -40,6 +42,9 @@ public class OI {
 
     _driverGamepad.buttonA.whenPressed(new ReceiveDisc(_hatch));
     _driverGamepad.buttonA.whenReleased(new LockDisc(_hatch));
+
+    _driverGamepad.buttonX.whenPressed(new PunchOut(_hatch));
+    _driverGamepad.buttonX.whenReleased(new PunchIn(_hatch));
 
     _shooter.setDefaultCommand(new ManualShooting(_shooter, _operatorGamepad.rightAnalogTrigger,
         _operatorGamepad.leftAnalogTrigger, _operatorGamepad.rightYAxis, _powerManager.getShooterPowerAllocationTarget()));
