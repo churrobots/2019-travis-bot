@@ -1,16 +1,22 @@
 { 
   "name": "TravisRobotContainer",
   "dockerFile": "Dockerfile",
+  "context": "..",
 
   // Improve write performance for the ./build directory per advanced config
   // recommendations in the VSCode remote container docs.
   // https://code.visualstudio.com/docs/remote/containers-advanced#_improving-container-disk-performance
+  // Also create a volume for VSCode to install extensions to prevent extension
+  // downloads every time container is rebuilt. You will need to delete this
+  // volume separately to get a fully clean install.
+  // https://code.visualstudio.com/docs/remote/containers-advanced#_avoiding-extension-reinstalls-on-container-rebuild
   "workspaceFolder": "/workspace",
   "workspaceMount": "src=${localWorkspaceFolder},dst=/workspace,type=bind,consistency=cached",
   "postCreateCommand": "sudo chown vscode:vscode build",
   "runArgs": [
     "-u", "vscode",
-    "-v", "wpilib-build-products:/workspace/build"
+    "-v", "travis-bot-wpilib-build-products:/workspace/build",
+    "-v", "travis-bot-vscode-extension-cache:/home/vscode/.vscode-server"
   ],
 
   // Include all the default VSCode extensions that you'll want

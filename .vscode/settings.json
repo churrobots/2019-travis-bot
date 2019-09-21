@@ -15,5 +15,6 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
-  "wpilib.autoStartRioLog": false
+  "wpilib.autoStartRioLog": false,
+  "wpilib.offline": true
 }
