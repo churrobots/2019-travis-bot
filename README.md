@@ -31,6 +31,7 @@
 * Figure out git credentials inside remote development containers. Docs: https://code.visualstudio.com/docs/remote/containers#_sharing-git-credentials-with-your-container
 * Make sure gradle env can be pre-built so we don't need internet at competition --- Downloading https://services.gradle.org/distributions/gradle-5.0-bin.zip
 * Figure out how to have students keep their git credentials / checkouts on a USB stick they keep?
+* Assign better tutorials for https://codehs.com/section/80279/course/692/activity_progress/module/1309
 * Design work session with students
   1. Ensure basics of Classes and Functions
   2. Discuss RobotMap (integers)
