@@ -1,5 +1,9 @@
 package frc.robot;
 
+import java.lang.reflect.Field;
+
+import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.DriveAsTank;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.EjectHatch;
@@ -37,12 +41,41 @@ public class OI {
     _cargoCannon = new CargoCannon(robotMap);
     _cargoPicker = new CargoPicker(robotMap);
 
+    Shuffleboard.getTab("Subsystems").add(_drivetrain);
+    Shuffleboard.getTab("Subsystems").add(_hatchPlacer);
+    Shuffleboard.getTab("Subsystems").add(_cargoCannon);
+    Shuffleboard.getTab("Subsystems").add(_cargoPicker);
+
+    publishFieldsToShuffleboard("Maps", "RobotMap", robotMap);
+    publishFieldsToShuffleboard("Maps", "StationMap", stationMap);
+
+  }
+
+  private void publishFieldsToShuffleboard(String shuffleBoardTabName, String objName, Object obj) {
+
+    for (Field field : obj.getClass().getDeclaredFields()) {
+      Object shuffleBoardValue = null;
+      String shuffleBoardTitle = String.format("%s.%s", objName, field.getName());
+      try {
+        shuffleBoardValue = field.get(obj);
+      } catch (IllegalArgumentException e) {
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      } finally {
+        Shuffleboard.getTab(shuffleBoardTabName).add(shuffleBoardTitle, shuffleBoardValue);
+      }
+    }
+  
   }
 
   public void useAutonomousMode() {
+    Shuffleboard.addEventMarker("useAutonomousMode", EventImportance.kNormal);
   }
 
   public void useTeleopMode() {
+
+    Shuffleboard.addEventMarker("useTeleopMode", EventImportance.kNormal);
 
     _drivetrain.setDefaultCommand(new DriveAsTank(
       _drivetrain,
