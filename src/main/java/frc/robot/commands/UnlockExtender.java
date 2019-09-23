@@ -8,34 +8,34 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Extender;
+import frc.robot.subsystems.CargoPicker;
 
 public class UnlockExtender extends Command {
-  private Extender _extender;
+  private CargoPicker _cargoPicker;
 
-  public UnlockExtender(Extender extender) {
+  public UnlockExtender(CargoPicker cargoPicker) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(extender);
-    _extender = extender;
+    requires(cargoPicker);
+    _cargoPicker = cargoPicker;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _extender.unlock();
+    setTimeout(0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _cargoPicker.unlock();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // give it a bit to unlock fully
-    return timeSinceInitialized() > 0.8;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true

@@ -21,19 +21,19 @@ public class OpenBeak extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _hatchPlacer.openBeak();
+    setTimeout(0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _hatchPlacer.openBeak();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // takes some time to open the beak fully for sure
-    return timeSinceInitialized() > 0.5;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true

@@ -8,13 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Cannon;
+import frc.robot.subsystems.CargoCannon;
 
 public class StopCannon extends Command {
 
-  private Cannon _shooter;
+  private CargoCannon _shooter;
 
-  public StopCannon(Cannon shooter) {
+  public StopCannon(CargoCannon shooter) {
     requires(shooter);
     _shooter = shooter;
   }
@@ -22,13 +22,13 @@ public class StopCannon extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _shooter.stopFlywheel();
-    _shooter.stopConveyor();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _shooter.stopFlywheel();
+    _shooter.stopConveyor();
   }
 
   // Make this return true when this Command no longer needs to run execute()

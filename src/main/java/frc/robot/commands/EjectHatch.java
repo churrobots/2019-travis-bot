@@ -10,29 +10,31 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.HatchPlacer;
 
-public class RetractPuncher extends Command {
-  public HatchPlacer _hatch;
+public class EjectHatch extends Command {
 
-  public RetractPuncher(HatchPlacer hatch) {
-    _hatch = hatch;
+  private HatchPlacer _hatchPlacer;
+
+  public EjectHatch(HatchPlacer hatchPlacer) {
+    _hatchPlacer = hatchPlacer;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("punch-in (kReverse for DoubleSolenoid @ 6, 4)");
-    _hatch.retract();
+    setTimeout(0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _hatchPlacer.closeBeak();
+    _hatchPlacer.punch();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true

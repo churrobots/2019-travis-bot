@@ -17,7 +17,7 @@ public class DriveAsTank extends Command {
   private SpeedTarget _leftSpeedTarget;
   private SpeedTarget _rightSpeedTarget;
   private SpeedTarget _boostTarget;
-  private boolean _stoppedMotors = false;
+  private boolean _interrupted = false;
 
   public DriveAsTank(Drivetrain drivetrain, SpeedTarget leftSpeedTarget, SpeedTarget rightSpeedTarget, SpeedTarget boostTarget) {
     requires(drivetrain);
@@ -48,19 +48,19 @@ public class DriveAsTank extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return _stoppedMotors;
+    return _interrupted;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _drivetrain.tankDrive(0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    _stoppedMotors = true;
-    _drivetrain.tankDrive(0, 0);
+    _interrupted = true;
   }
 }

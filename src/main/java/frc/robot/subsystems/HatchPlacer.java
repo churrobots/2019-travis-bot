@@ -39,7 +39,7 @@ public class HatchPlacer extends Subsystem {
     _puncher.set(Value.kForward);
   }
 
-  public void retract() {
+  public void retractPuncher() {
     _puncher.set(Value.kReverse);
   }
 

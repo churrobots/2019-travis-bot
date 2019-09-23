@@ -15,36 +15,36 @@ public class DriveForTime extends Command {
   private Drivetrain _drivetrain;
   private double _leftSpeed;
   private double _rightSpeed;
-  private double _timeInSeconds;
 
   public DriveForTime(Drivetrain drivetrain, double leftSpeed, double rightSpeed, double timeInSeconds) {
     requires(drivetrain);
     _drivetrain = drivetrain;
     _leftSpeed = leftSpeed;
     _rightSpeed = rightSpeed;
-    _timeInSeconds = timeInSeconds;
+    setTimeout(timeInSeconds);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _drivetrain.tankDrive(_leftSpeed, _rightSpeed);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _drivetrain.tankDrive(_leftSpeed, _rightSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return timeSinceInitialized() > _timeInSeconds;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _drivetrain.tankDrive(0, 0);
   }
 
   // Called when another command which requires one or more of the same

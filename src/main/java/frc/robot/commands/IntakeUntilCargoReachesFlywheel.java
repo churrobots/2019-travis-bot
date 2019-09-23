@@ -8,38 +8,44 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Cannon;
+import frc.robot.subsystems.CargoCannon;
 
-public class IntakeUntilBallExits extends Command {
-  private Cannon _cannon;
-  public IntakeUntilBallExits(Cannon cannon) {
+public class IntakeUntilCargoReachesFlywheel extends Command {
+  private CargoCannon _cargoCannon;
+  public IntakeUntilCargoReachesFlywheel(CargoCannon cargoCannon) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(cannon);
-    _cannon = cannon;
+    requires(cargoCannon);
+    _cargoCannon = cargoCannon;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _cannon.startConveyorIntake();
+    // it should never take longer than 3 seconds total to shoot
+    _cargoCannon.startConveyorIntake();
+    setTimeout(3);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // Once the ball is no longer detected, give it some seconds to exit the flywheel
+    if (!_cargoCannon.hasCargoInHoldingArea()) {
+      setTimeout(1.2);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // give it extra time to make sure the ball exits via the flywheel
-    return timeSinceInitialized() > 1.6;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _cargoCannon.stopConveyor();
   }
 
   // Called when another command which requires one or more of the same

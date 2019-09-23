@@ -8,49 +8,44 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Cannon;
+import frc.robot.subsystems.HatchPlacer;
 
-public class IntakeUntilCannonLoaded extends Command {
+public class LoadHatch extends Command {
 
-  private Cannon _cannon;
-  private boolean _keepLoading;
+  private HatchPlacer _hatchPlacer;
 
-  public IntakeUntilCannonLoaded(Cannon cannon) {
-    requires(cannon);
-    _cannon = cannon;
-    _keepLoading = true;
+  public LoadHatch(HatchPlacer hatchPlacer) {
+    requires(hatchPlacer);
+    _hatchPlacer = hatchPlacer;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _cannon.startConveyorIntake();
+    setTimeout(0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (_cannon.hasBall()) {
-      _keepLoading = false;
-    }
+    _hatchPlacer.openBeak();
+    _hatchPlacer.retractPuncher();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return _keepLoading;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    _cannon.stopConveyor();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    _keepLoading = false;
   }
 }

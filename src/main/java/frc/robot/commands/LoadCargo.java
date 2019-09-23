@@ -8,18 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.subsystems.Cannon;
-import frc.robot.subsystems.Extender;
+import frc.robot.subsystems.CargoCannon;
+import frc.robot.subsystems.CargoPicker;
 
-public class LoadCannon extends CommandGroup {
+public class LoadCargo extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public LoadCannon(Cannon cannon, Extender extender) {
-    addSequential(new UnlockExtender(extender));
-    addSequential(new FoldDown(extender));
-    addSequential(new IntakeUntilCannonLoaded(cannon));
-    addSequential(new FoldUp(extender));
-    addSequential(new LockExtender(extender));
+  public LoadCargo(CargoCannon cargoCannon, CargoPicker cargoPicker) {
+    addSequential(new UnlockExtender(cargoPicker));
+    addParallel(new FoldDown(cargoPicker));
+    addSequential(new IntakeUntilCargoReachesHoldingArea(cargoCannon));
+    addSequential(new FoldUp(cargoPicker));
+    addSequential(new LockExtender(cargoPicker));
   }
 }

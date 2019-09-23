@@ -8,33 +8,33 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Cannon;
+import frc.robot.subsystems.CargoCannon;
 
 public class SpinUpFlywheel extends Command {
-  private Cannon _cannon;
-  public SpinUpFlywheel(Cannon cannon) {
+  private CargoCannon _cargoCannon;
+  public SpinUpFlywheel(CargoCannon cargoCannon) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(cannon);
-    _cannon = cannon;
+    requires(cargoCannon);
+    _cargoCannon = cargoCannon;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _cannon.startFlywheel();
+    setTimeout(0.8);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _cargoCannon.startFlywheel();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // give the flywheel some time to come up to speed
-    return timeSinceInitialized() < 1.2;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true

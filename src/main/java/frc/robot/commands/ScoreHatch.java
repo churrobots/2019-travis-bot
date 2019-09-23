@@ -17,14 +17,14 @@ public class ScoreHatch extends CommandGroup {
    */
   public ScoreHatch(HatchPlacer hatchPlacer, Drivetrain drivetrain) {
 
-    DriveForTime forwardALittleBit = new DriveForTime(drivetrain, 0.5, 0.5, 0.6);
-    DriveForTime reverseALittleBit = new DriveForTime(drivetrain, -0.5, -0.5, 1.0);
+    // Move forward while ejecting the hatch to get a solid attachment.
+    addParallel(new DriveForTime(drivetrain, 0.5, 0.5, 0.6));
+    addSequential(new EjectHatch(hatchPlacer));
 
-    addSequential(forwardALittleBit);
-    addSequential(new CloseBeak(hatchPlacer));
-    addSequential(new PunchHatch(hatchPlacer));
-    addSequential(reverseALittleBit);
-    addSequential(new RetractPuncher(hatchPlacer));
+    // Move reverse while still ejecting the hatch to cleanly separate from the
+    // hatch before allowing the Hatch Placer to return to default position.
+    addParallel(new DriveForTime(drivetrain, -0.5, -0.5, 1.0));
+    addSequential(new EjectHatch(hatchPlacer));
 
   }
 }

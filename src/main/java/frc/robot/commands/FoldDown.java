@@ -8,33 +8,33 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Extender;
+import frc.robot.subsystems.CargoPicker;
 
 public class FoldDown extends Command {
-  private Extender _extender;
-  public FoldDown(Extender extender) {
+  private CargoPicker _cargoPicker;
+  public FoldDown(CargoPicker cargoPicker) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(extender);
-    _extender = extender;
+    requires(cargoPicker);
+    _cargoPicker = cargoPicker;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _extender.foldDown();
+    setTimeout(1.0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _cargoPicker.foldDown();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // give it a second to fold down fully
-    return timeSinceInitialized() > 1.0;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true

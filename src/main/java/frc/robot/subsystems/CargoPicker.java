@@ -16,12 +16,12 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class Extender extends Subsystem {
+public class CargoPicker extends Subsystem {
 
   private final Solenoid _hook;
   private final DoubleSolenoid _wrist;
 
-  public Extender(RobotMap robotMap) {
+  public CargoPicker(RobotMap robotMap) {
 
     _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
 

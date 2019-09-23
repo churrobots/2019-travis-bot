@@ -8,14 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.subsystems.Cannon;
+import frc.robot.subsystems.CargoCannon;
 
-public class ScoreBall extends CommandGroup {
+public class ScoreCargo extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ScoreBall(Cannon cannon) {
-    addSequential(new SpinUpFlywheel(cannon));
-    addSequential(new IntakeUntilBallExits(cannon));
+  public ScoreCargo(CargoCannon cargoCannon) {
+    addSequential(new SpinUpFlywheel(cargoCannon));
+    addSequential(new IntakeUntilCargoReachesFlywheel(cargoCannon));
+    addSequential(new StopCannon(cargoCannon));
   }
 }

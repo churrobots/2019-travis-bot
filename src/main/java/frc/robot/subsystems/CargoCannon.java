@@ -18,7 +18,7 @@ import frc.robot.commands.StopCannon;
 /**
  * Add your docs here.
  */
-public class Cannon extends Subsystem {
+public class CargoCannon extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -26,7 +26,7 @@ public class Cannon extends Subsystem {
   private SpeedController _flywheel;
   private DigitalInput _ballSensor;
 
-  public Cannon(RobotMap robotMap) {
+  public CargoCannon(RobotMap robotMap) {
     _conveyor = new WPI_VictorSPX(robotMap.conveyorVictorPWM);
     _flywheel = new WPI_VictorSPX(robotMap.flywheelVictorPWM);
     _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
@@ -52,7 +52,7 @@ public class Cannon extends Subsystem {
     _flywheel.set(0);
   }
 
-  public boolean hasBall() {
+  public boolean hasCargoInHoldingArea() {
     return _ballSensor.get();
   }
 

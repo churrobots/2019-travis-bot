@@ -8,37 +8,42 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Cannon;
+import frc.robot.subsystems.CargoCannon;
 
-public class EjectBall extends Command {
-  private Cannon _cannon;
-  public EjectBall(Cannon cannon) {
+public class EjectCargo extends Command {
+  private CargoCannon _cargoCannon;
+  public EjectCargo(CargoCannon cargoCannon) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(cannon);
-    _cannon = cannon;
+    requires(cargoCannon);
+    _cargoCannon = cargoCannon;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _cannon.startConveyorEject();
+    _cargoCannon.startConveyorEject();
+    setTimeout(4);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (!_cargoCannon.hasCargoInHoldingArea()) {
+      setTimeout(1.2);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _cargoCannon.stopConveyor();
   }
 
   // Called when another command which requires one or more of the same
