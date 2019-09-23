@@ -8,22 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.HatchPlacer;
 
-public class StopShooter extends Command {
+public class RetractPuncher extends Command {
+  public HatchPlacer _hatch;
 
-  private Shooter _shooter;
-
-  public StopShooter(Shooter shooter) {
-    requires(shooter);
-    _shooter = shooter;
+  public RetractPuncher(HatchPlacer hatch) {
+    _hatch = hatch;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _shooter.flywheel.set(0);
-    _shooter.conveyor.set(0);
+    System.out.println("punch-in (kReverse for DoubleSolenoid @ 6, 4)");
+    _hatch.retract();
   }
 
   // Called repeatedly when this Command is scheduled to run

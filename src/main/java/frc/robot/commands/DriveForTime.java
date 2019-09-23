@@ -7,22 +7,28 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Hatch;
+import frc.robot.subsystems.Drivetrain;
 
-public class PunchIn extends Command {
-  public Hatch _hatch;
+public class DriveForTime extends Command {
 
-  public PunchIn(Hatch hatch) {
-    _hatch = hatch;
+  private Drivetrain _drivetrain;
+  private double _leftSpeed;
+  private double _rightSpeed;
+  private double _timeInSeconds;
+
+  public DriveForTime(Drivetrain drivetrain, double leftSpeed, double rightSpeed, double timeInSeconds) {
+    requires(drivetrain);
+    _drivetrain = drivetrain;
+    _leftSpeed = leftSpeed;
+    _rightSpeed = rightSpeed;
+    _timeInSeconds = timeInSeconds;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("punch-in (kReverse for DoubleSolenoid @ 6, 4)");
-    _hatch.puncher.set(Value.kReverse);
+    _drivetrain.tankDrive(_leftSpeed, _rightSpeed);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -33,7 +39,7 @@ public class PunchIn extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return timeSinceInitialized() > _timeInSeconds;
   }
 
   // Called once after isFinished returns true

@@ -1,15 +1,14 @@
 package frc.robot;
 
 import frc.robot.commands.DriveAsTank;
-import frc.robot.commands.LockDisc;
-import frc.robot.commands.ManualShooting;
-import frc.robot.commands.PunchIn;
-import frc.robot.commands.PunchOut;
-import frc.robot.commands.ReceiveDisc;
+import frc.robot.commands.RetractPuncher;
+import frc.robot.commands.ScoreHatch;
+import frc.robot.commands.PunchHatch;
+import frc.robot.commands.ReceiveHatch;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Hatch;
-import frc.robot.subsystems.PowerManager;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.HatchPlacer;
+import frc.robot.subsystems.Cannon;
+import frc.robot.tools.Gamepad;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -18,18 +17,21 @@ import frc.robot.subsystems.Shooter;
 public class OI {
 
   // TODO: send these in as DriverStation subsystem object
-  private final Gamepad _driverGamepad = new Gamepad(0);
-  private final Gamepad _operatorGamepad = new Gamepad(1);
+  private final Gamepad _driverGamepad;
+  private final Gamepad _operatorGamepad;
   private final Drivetrain _drivetrain;
-  private final Hatch _hatch;
-  private final Shooter _shooter;
-  private final PowerManager _powerManager;
+  private final HatchPlacer _hatchPlacer;
+  private final Cannon _cannon;
 
-  public OI(Drivetrain drivetrain, Hatch hatch, PowerManager powerManager, Shooter shooter) {
-    _drivetrain = drivetrain;
-    _powerManager = powerManager;
-    _hatch = hatch;
-    _shooter = shooter;
+  public OI(StationMap stationMap, RobotMap robotMap) {
+
+    _driverGamepad = new Gamepad(stationMap.driverGamepadPort, stationMap.driverGamepadType);
+    _operatorGamepad = new Gamepad(stationMap.operatorGamepadPort, stationMap.operatorGamepadType);
+
+    _drivetrain = new Drivetrain(robotMap);
+    _hatchPlacer = new HatchPlacer(robotMap);
+    _cannon = new Cannon(robotMap);
+
   }
 
   public void useAutonomousMode() {
@@ -37,17 +39,21 @@ public class OI {
 
   public void useTeleopMode() {
 
-    _drivetrain.setDefaultCommand(new DriveAsTank(_drivetrain, _driverGamepad.leftYAxis, _driverGamepad.rightYAxis,
-        _driverGamepad.rightAnalogTrigger, _powerManager.getDrivetrainPowerAllocationTarget()));
+    _drivetrain.setDefaultCommand(new DriveAsTank(
+      _drivetrain,
+      _driverGamepad.leftYAxis,
+      _driverGamepad.rightYAxis,
+      _driverGamepad.rightAnalogTrigger
+    ));
 
-    _driverGamepad.buttonA.whenPressed(new ReceiveDisc(_hatch));
-    _driverGamepad.buttonA.whenReleased(new LockDisc(_hatch));
+    _driverGamepad.leftBumper.whileHeld(new ReceiveHatch(_hatchPlacer));
+    _driverGamepad.rightBumper.whenPressed(new ScoreHatch(_hatchPlacer, _drivetrain));
 
-    _driverGamepad.buttonX.whenPressed(new PunchOut(_hatch));
-    _driverGamepad.buttonX.whenReleased(new PunchIn(_hatch));
+    _driverGamepad.buttonWest.whenPressed(new PunchHatch(_hatchPlacer));
+    _driverGamepad.buttonWest.whenReleased(new RetractPuncher(_hatchPlacer));
 
-    _shooter.setDefaultCommand(new ManualShooting(_shooter, _operatorGamepad.rightAnalogTrigger,
-        _operatorGamepad.leftAnalogTrigger, _operatorGamepad.rightYAxis, _powerManager.getShooterPowerAllocationTarget()));
+    // _cannon.setDefaultCommand(new ManualShooting(_cannon, _operatorGamepad.rightAnalogTrigger,
+    //     _operatorGamepad.leftAnalogTrigger, _operatorGamepad.rightYAxis, _powerManager.getShooterPowerAllocationTarget()));
   
   }
 

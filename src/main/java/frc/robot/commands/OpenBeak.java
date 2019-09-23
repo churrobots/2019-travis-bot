@@ -7,53 +7,33 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.SpeedTarget;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.HatchPlacer;
 
-public class ManualShooting extends Command {
-  private Shooter _shooter;
-  private SpeedTarget _conveyorSpeed;
-  private SpeedTarget _flywheelSpeed;
-  private SpeedTarget _powerAllocation;
-  private SpeedTarget _reverser;
-  
-  public ManualShooting(Shooter shooter, SpeedTarget conveyorSpeed, SpeedTarget flywheelSpeed, SpeedTarget reverser, SpeedTarget powerAllocation) {
-    requires(shooter);
-    _shooter = shooter;
-    _conveyorSpeed = conveyorSpeed;
-    _flywheelSpeed = flywheelSpeed;
-    _powerAllocation = powerAllocation;
-    _reverser = reverser;
+public class OpenBeak extends Command {
+
+  private HatchPlacer _hatchPlacer;
+
+  public OpenBeak(HatchPlacer hatchPlacer) {
+    _hatchPlacer = hatchPlacer;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    _hatchPlacer.openBeak();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _shooter.flywheel.set(_flywheelSpeed.get());
-    double reverseValue = Math.abs(_reverser.get());
-    double conveyorSpeed = _conveyorSpeed.get();
-    if (reverseValue > 0.1) {
-      conveyorSpeed = -reverseValue;
-    }
-    if (conveyorSpeed > 0.09) {
-      _shooter.wrist.set(Value.kForward);
-    } else {
-      _shooter.wrist.set(Value.kReverse);
-    }
-    _shooter.conveyor.set(conveyorSpeed * _powerAllocation.get());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    // takes some time to open the beak fully for sure
+    return timeSinceInitialized() > 0.5;
   }
 
   // Called once after isFinished returns true

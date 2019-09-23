@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.tools;
 
 public interface SpeedTarget {
 

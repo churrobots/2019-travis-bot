@@ -7,24 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Hatch;
+import frc.robot.subsystems.HatchPlacer;
 
-public class ReceiveDisc extends Command {
-
-  private Hatch _hatch;
-
-  public ReceiveDisc(Hatch hatch) {
-    requires(hatch);
+public class PunchHatch extends Command {
+  public HatchPlacer _hatch;
+  public PunchHatch(HatchPlacer hatch) {
     _hatch = hatch;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _hatch.beak.set(Value.kReverse);
-    _hatch.puncher.set(Value.kReverse);
+    _hatch.punch();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,7 +30,8 @@ public class ReceiveDisc extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    // takes some time to punch out fully for sure
+    return timeSinceInitialized() > 0.5;
   }
 
   // Called once after isFinished returns true

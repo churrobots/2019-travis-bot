@@ -12,7 +12,7 @@ import frc.robot.subsystems.Drivetrain;
 
 public class StopDriving extends Command {
 
-  private Drivetrain _drivetrain;
+  private final Drivetrain _drivetrain;
 
   public StopDriving(Drivetrain drivetrain) {
     requires(drivetrain);

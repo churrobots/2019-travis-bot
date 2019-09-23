@@ -7,31 +7,46 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.StopShooter;
+import frc.robot.commands.StopCannon;
 
 /**
  * Add your docs here.
  */
-public class Shooter extends Subsystem {
+public class Cannon extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public SpeedController conveyor;
-  public SpeedController flywheel;
-  public DoubleSolenoid wrist;
+  private SpeedController _conveyor;
+  private SpeedController _flywheel;
 
-  public Shooter(RobotMap robotMap) {
-    conveyor = robotMap.conveyor;
-    flywheel = robotMap.flywheel;
-    wrist = robotMap.wrist;
+  public Cannon(RobotMap robotMap) {
+    _conveyor = new WPI_VictorSPX(robotMap.conveyorVictorPWM);
+    _flywheel = new WPI_VictorSPX(robotMap.flywheelVictorPWM);
+  }
+
+  public void startConveyor() {
+    _conveyor.set(0.75);
+  }
+
+  public void stopConveyor() {
+    _conveyor.set(0);
+  }
+
+  public void startFlywheel() {
+    _flywheel.set(1.0);
+  }
+
+  public void stopFlywheel() {
+    _flywheel.set(0);
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new StopShooter(this));
+    setDefaultCommand(new StopCannon(this));
   }
 }

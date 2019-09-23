@@ -7,21 +7,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Hatch;
+import frc.robot.subsystems.Cannon;
 
-public class PunchOut extends Command {
-  public Hatch _hatch;
-  public PunchOut(Hatch hatch) {
-    _hatch = hatch;
+public class StopCannon extends Command {
+
+  private Cannon _shooter;
+
+  public StopCannon(Cannon shooter) {
+    requires(shooter);
+    _shooter = shooter;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("punch-out (kForward for DoubleSolenoid @ 6, 4)");
-    _hatch.puncher.set(Value.kForward);
+    _shooter.stopFlywheel();
+    _shooter.stopConveyor();
   }
 
   // Called repeatedly when this Command is scheduled to run
