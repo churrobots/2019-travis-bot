@@ -41,11 +41,13 @@ public class OI {
     _cargoCannon = new CargoCannon(robotMap);
     _cargoPicker = new CargoPicker(robotMap);
 
+    // TODO: confirm this outputs what we expect
     Shuffleboard.getTab("Subsystems").add(_drivetrain);
     Shuffleboard.getTab("Subsystems").add(_hatchPlacer);
     Shuffleboard.getTab("Subsystems").add(_cargoCannon);
     Shuffleboard.getTab("Subsystems").add(_cargoPicker);
 
+    // TODO: confirm this outputs what we expect
     publishFieldsToShuffleboard("Maps", "RobotMap", robotMap);
     publishFieldsToShuffleboard("Maps", "StationMap", stationMap);
 

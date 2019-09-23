@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.StopDriving;
 
@@ -27,6 +28,10 @@ public class Drivetrain extends Subsystem {
       new WPI_VictorSPX(robotMap.rightVictorMotor1CAN),
       new WPI_VictorSPX(robotMap.rightVictorMotor2CAN)
     );
+
+    // TODO: confirm this outputs what we expect
+    Shuffleboard.getTab("Subsystems").add("Drivetrain.LeftMotors", leftMotors);
+    Shuffleboard.getTab("Subsystems").add("Drivetrain.RightMotors", leftMotors);
 
     _differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
   

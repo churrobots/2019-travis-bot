@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.HoldHatch;
 
@@ -24,6 +25,10 @@ public class HatchPlacer extends Subsystem {
       robotMap.puncherDoubleSolenoidForwardChannel,
       robotMap.puncherDoubleSolenoidReverseChannel
     );
+
+    // TODO: confirm this outputs what we expect
+    Shuffleboard.getTab("Subsystems").add("HatchPlacer.beak", _beak);
+    Shuffleboard.getTab("Subsystems").add("HatchPlacer.puncher", _puncher);
   
   }
 
