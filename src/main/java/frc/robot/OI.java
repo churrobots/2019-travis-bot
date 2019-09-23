@@ -1,11 +1,13 @@
 package frc.robot;
 
 import frc.robot.commands.DriveAsTank;
-import frc.robot.commands.RetractPuncher;
+import frc.robot.commands.EjectBall;
+import frc.robot.commands.LoadCannon;
 import frc.robot.commands.ScoreHatch;
-import frc.robot.commands.PunchHatch;
 import frc.robot.commands.ReceiveHatch;
+import frc.robot.commands.ScoreBall;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Extender;
 import frc.robot.subsystems.HatchPlacer;
 import frc.robot.subsystems.Cannon;
 import frc.robot.tools.Gamepad;
@@ -16,12 +18,13 @@ import frc.robot.tools.Gamepad;
  */
 public class OI {
 
-  // TODO: send these in as DriverStation subsystem object
   private final Gamepad _driverGamepad;
   private final Gamepad _operatorGamepad;
+
   private final Drivetrain _drivetrain;
   private final HatchPlacer _hatchPlacer;
   private final Cannon _cannon;
+  private final Extender _extender;
 
   public OI(StationMap stationMap, RobotMap robotMap) {
 
@@ -31,6 +34,7 @@ public class OI {
     _drivetrain = new Drivetrain(robotMap);
     _hatchPlacer = new HatchPlacer(robotMap);
     _cannon = new Cannon(robotMap);
+    _extender = new Extender(robotMap);
 
   }
 
@@ -49,11 +53,9 @@ public class OI {
     _driverGamepad.leftBumper.whileHeld(new ReceiveHatch(_hatchPlacer));
     _driverGamepad.rightBumper.whenPressed(new ScoreHatch(_hatchPlacer, _drivetrain));
 
-    _driverGamepad.buttonWest.whenPressed(new PunchHatch(_hatchPlacer));
-    _driverGamepad.buttonWest.whenReleased(new RetractPuncher(_hatchPlacer));
-
-    // _cannon.setDefaultCommand(new ManualShooting(_cannon, _operatorGamepad.rightAnalogTrigger,
-    //     _operatorGamepad.leftAnalogTrigger, _operatorGamepad.rightYAxis, _powerManager.getShooterPowerAllocationTarget()));
+    _operatorGamepad.leftBumper.whileHeld(new LoadCannon(_cannon, _extender));
+    _operatorGamepad.rightBumper.whenPressed(new ScoreBall(_cannon));
+    _operatorGamepad.buttonWest.whileHeld(new EjectBall(_cannon));
   
   }
 

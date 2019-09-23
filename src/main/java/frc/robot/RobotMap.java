@@ -28,4 +28,6 @@ public class RobotMap {
   public final int hookPCM = 1;
   public final int hookSolenoidChannel = 1;
 
+  public final int ballSensorDIO = 999;
+
 }

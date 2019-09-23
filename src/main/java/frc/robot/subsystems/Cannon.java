@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -23,14 +24,20 @@ public class Cannon extends Subsystem {
 
   private SpeedController _conveyor;
   private SpeedController _flywheel;
+  private DigitalInput _ballSensor;
 
   public Cannon(RobotMap robotMap) {
     _conveyor = new WPI_VictorSPX(robotMap.conveyorVictorPWM);
     _flywheel = new WPI_VictorSPX(robotMap.flywheelVictorPWM);
+    _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
   }
 
-  public void startConveyor() {
+  public void startConveyorIntake() {
     _conveyor.set(0.75);
+  }
+
+  public void startConveyorEject() {
+    _conveyor.set(-0.75);
   }
 
   public void stopConveyor() {
@@ -43,6 +50,10 @@ public class Cannon extends Subsystem {
 
   public void stopFlywheel() {
     _flywheel.set(0);
+  }
+
+  public boolean hasBall() {
+    return _ballSensor.get();
   }
 
   @Override
