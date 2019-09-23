@@ -31,4 +31,5 @@
 * Figure out how to manage multi-user Github + VSCode checkouts with a pool of laptops
   * could [create a MacOS user account that uses external USB](https://www.lifewire.com/move-macs-home-folder-new-location-2260157) and students can boot with that USB
   * could [create separate user accounts](https://support.apple.com/guide/mac-help/set-up-other-users-mtusr001/mac), restrict app access, force github to clone to usb?, and have an "on logout" script that destroys github credentials
+  * could probably just configure VSCode and GH on main account, and then give Guest account access on the Macs with just those 2 apps. Downside is students will always have to clone the repo and find their branch every time (need to understand git), and push their code up every time (which is good practice at least)
 * Update our [CodeHS curriculum](https://codehs.com/section/80279/course/692/activity_progress/module/1309) to include some robot-specific and practice sessions
