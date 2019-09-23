@@ -37,43 +37,7 @@
     // These settings are required for the Java container environment.
     "java.home": "/docker-java-home",
     "terminal.integrated.shell.linux": "/bin/bash",
-    "terminal.integrated.rendererType": "dom",
+    "terminal.integrated.rendererType": "dom"
 
-    "files.exclude": {
-
-      // Prevent editing of typical hidden files for Java
-      // projects under source control.
-      "**/.git": true,
-      "**/.svn": true,
-      "**/.hg": true,
-      "**/CVS": true,
-      "**/.DS_Store": true,
-      "bin/": true,
-      ".classpath": true,
-      ".project": true,
-      "**/.classpath": true,
-      "**/.project": true,
-      "**/.settings": true,
-      "**/.factorypath": true,
-
-      // Hide development environment settings to keep workspace clear
-      // of files that FRC students should not typically update.
-      "**/.gitignore": true,
-      "**/.devcontainer": true,
-      "**/.vscode": true,
-
-      // Hide build products and build settings to keep workspace clear
-      // of files that FRC students should not typically update.
-      "**/.wpilib": true,
-      "**/.gradle": true,
-      "**/gradle": true,
-      "gradlew": true,
-      "gradlew.bat": true,
-      "build.gradle": true,
-      "settings.gradle": true,
-      "**/vendordeps": true,
-      "**/build": true,
-      "**/Main.java": true
-    }
   }
 }
