@@ -45,5 +45,4 @@ public class OI {
         _operatorGamepad.leftAnalogTrigger, _operatorGamepad.rightYAxis, _powerManager.getShooterPowerAllocationTarget()));
   
   }
-
 }
