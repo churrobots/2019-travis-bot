@@ -43,7 +43,7 @@ public class Gamepad {
 
   }
 
-  public static class Axis implements SpeedTarget {
+  public static class Axis {
 
     private Joystick _gamepad;
     private int _axis;

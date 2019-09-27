@@ -8,23 +8,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.tools.SpeedTarget;
+import frc.robot.tools.Gamepad.Axis;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveAsTank extends Command {
 
-  private Drivetrain _drivetrain;
-  private SpeedTarget _leftSpeedTarget;
-  private SpeedTarget _rightSpeedTarget;
-  private SpeedTarget _boostTarget;
-  private boolean _interrupted = false;
+  private final Drivetrain _drivetrain;
+  private final Axis _leftAxis;
+  private final Axis _rightAxis;
+  private final Axis _boostAxis;
 
-  public DriveAsTank(Drivetrain drivetrain, SpeedTarget leftSpeedTarget, SpeedTarget rightSpeedTarget, SpeedTarget boostTarget) {
+  public DriveAsTank(Drivetrain drivetrain, Axis leftAxis, Axis rightAxis, Axis boostAxis) {
     requires(drivetrain);
     _drivetrain = drivetrain;
-    _leftSpeedTarget = leftSpeedTarget;
-    _rightSpeedTarget = rightSpeedTarget;
-    _boostTarget = boostTarget;
+    _leftAxis = leftAxis;
+    _rightAxis = rightAxis;
+    _boostAxis = boostAxis;
   }
 
   // Called just before this Command runs the first time
@@ -37,10 +36,10 @@ public class DriveAsTank extends Command {
   protected void execute() {
 
     double minSpeed = 0.7;
-    double boostModifier = _boostTarget.get() * (1 - minSpeed) + minSpeed;
+    double boostModifier = _boostAxis.get() * (1 - minSpeed) + minSpeed;
     // TODO: implement brownout prevention
-    double leftSpeed = _leftSpeedTarget.get() * boostModifier;
-    double rightSpeed = _rightSpeedTarget.get() * boostModifier;
+    double leftSpeed = _leftAxis.get() * boostModifier;
+    double rightSpeed = _rightAxis.get() * boostModifier;
     _drivetrain.tankDrive(leftSpeed, rightSpeed);
 
   }
@@ -48,7 +47,7 @@ public class DriveAsTank extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return _interrupted;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -61,6 +60,6 @@ public class DriveAsTank extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    _interrupted = true;
+    end();
   }
 }
