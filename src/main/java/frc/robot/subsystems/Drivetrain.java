@@ -16,6 +16,9 @@ public class Drivetrain extends Subsystem {
   private final DifferentialDrive _differentialDrive;
   private final WPI_TalonSRX _leftTalonMotor;
   private final WPI_TalonSRX _rightTalonMotor;
+  private int _mostRecentLeftRotations = 0;
+  private int _mostRecentRightRotations = 0;
+  private int _allowableEncoderPositionRange = 5;
 
   public Drivetrain(RobotMap robotMap) {
 
@@ -44,10 +47,28 @@ public class Drivetrain extends Subsystem {
     _differentialDrive.tankDrive(leftSpeed, rightSpeed);
   }
 
-  public void tankDriveByRotations(double leftRotations, double rightRotations) {
+  public void tankDriveByRotations(int leftRotations, int rightRotations) {
+
     // https://seamonsters-2605.github.io/docs/reference/#using-encoders
+
+    _mostRecentLeftRotations = leftRotations;
+    _leftTalonMotor.setSelectedSensorPosition(0);
     _leftTalonMotor.set(ControlMode.Position, leftRotations);
+
+    _mostRecentRightRotations = rightRotations;
+    _rightTalonMotor.setSelectedSensorPosition(0);
     _rightTalonMotor.set(ControlMode.Position, rightRotations);
+
+  }
+
+  public boolean hasCompletedMostRecentRotations() {
+    int deltaLeft = Math.abs(_leftTalonMotor.getSelectedSensorPosition() - _mostRecentLeftRotations);
+    int deltaRight = Math.abs(_rightTalonMotor.getSelectedSensorPosition() - _mostRecentRightRotations);
+    if (deltaLeft < _allowableEncoderPositionRange && deltaRight < _allowableEncoderPositionRange) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override

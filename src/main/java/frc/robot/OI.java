@@ -1,8 +1,10 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.DriveAsTank;
+import frc.robot.commands.DriveAsTankByRotations;
 import frc.robot.commands.LoadCargo;
 import frc.robot.commands.ScoreHatch;
 import frc.robot.commands.LoadHatch;
@@ -25,6 +27,9 @@ public class OI {
   private final HatchPlacer _hatchPlacer;
   private final CargoCannon _cargoCannon;
 
+  private final NetworkTableEntry _autoLeftPosition;
+  private final NetworkTableEntry _autoRightPosition;
+
   public OI(StationMap stationMap, RobotMap robotMap) {
 
     _driverGamepad = new Gamepad(stationMap.driverGamepadPort, stationMap.driverGamepadType);
@@ -39,6 +44,9 @@ public class OI {
     Shuffleboard.getTab("Subsystems").add(_drivetrain);
     Shuffleboard.getTab("Subsystems").add(_hatchPlacer);
     Shuffleboard.getTab("Subsystems").add(_cargoCannon);
+
+    _autoLeftPosition = Shuffleboard.getTab("Subsystems").add("AUTO: Left Target", 20).getEntry();
+    _autoRightPosition = Shuffleboard.getTab("Subsystems").add("AUTO: Right Target", 40).getEntry();
 
   }
 
@@ -58,6 +66,12 @@ public class OI {
       _driverGamepad.leftYAxis,
       _driverGamepad.rightYAxis,
       _driverGamepad.rightAnalogTrigger
+    ));
+
+    _driverGamepad.buttonSouth.whenPressed(new DriveAsTankByRotations(
+      _drivetrain,
+      _autoLeftPosition.getNumber(20).intValue(),
+      _autoRightPosition.getNumber(40).intValue()
     ));
 
     _operatorGamepad.buttonWest.whileHeld(new LoadHatch(_hatchPlacer));
