@@ -10,10 +10,15 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.StopCannon;
+import frc.robot.commands.ShutdownCannon;
 
 /**
  * Add your docs here.
@@ -25,11 +30,27 @@ public class CargoCannon extends Subsystem {
   private SpeedController _conveyor;
   private SpeedController _flywheel;
   private DigitalInput _ballSensor;
+  private final Solenoid _hook;
+  private final DoubleSolenoid _wrist;
 
   public CargoCannon(RobotMap robotMap) {
-    _conveyor = new WPI_VictorSPX(robotMap.conveyorVictorPWM);
-    _flywheel = new WPI_VictorSPX(robotMap.flywheelVictorPWM);
+    _conveyor = new PWMVictorSPX(robotMap.conveyorVictorPWM);
+    _flywheel = new PWMVictorSPX(robotMap.flywheelVictorPWM);
     _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
+
+    _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
+
+    _wrist = new DoubleSolenoid(robotMap.wristPCM, robotMap.wristDoubleSolenoidForwardChannel,
+        robotMap.wristDoubleSolenoidReverseChannel);
+    Shuffleboard.getTab("Subsystems").add("Light Sensor", _ballSensor);
+  }
+
+  public void setConveyor(double x) {
+    _conveyor.set(x);
+  }
+
+  public void setFlywheel(double x) {
+    _flywheel.set(x);
   }
 
   public void startConveyorIntake() {
@@ -56,8 +77,24 @@ public class CargoCannon extends Subsystem {
     return _ballSensor.get();
   }
 
+  public void foldDown() {
+    _wrist.set(Value.kForward);
+  }
+
+  public void foldUp() {
+    _wrist.set(Value.kReverse);
+  }
+
+  public void lock() {
+    _hook.set(false);
+  }
+
+  public void unlock() {
+    _hook.set(true);
+  }
+
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new StopCannon(this));
+    setDefaultCommand(new ShutdownCannon(this));
   }
 }

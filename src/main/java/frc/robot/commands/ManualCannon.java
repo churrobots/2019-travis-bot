@@ -9,32 +9,38 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.CargoCannon;
+import frc.robot.tools.SpeedTarget;
 
-public class FoldDown extends Command {
-  private CargoCannon _cargoPicker;
-  public FoldDown(CargoCannon cargoPicker) {
+public class ManualCannon extends Command {
+  CargoCannon _cargoCannon;
+  SpeedTarget _intakeSpeed;
+  SpeedTarget _flywheelSpeed;
+  public ManualCannon(CargoCannon cargoCannon, SpeedTarget intakeSpeed, SpeedTarget flywheelSpeed) {
+    requires(cargoCannon);
+    _cargoCannon = cargoCannon;
+    _intakeSpeed = intakeSpeed;
+    _flywheelSpeed = flywheelSpeed;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(cargoPicker);
-    _cargoPicker = cargoPicker;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(1.0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _cargoPicker.foldDown();
+    _cargoCannon.setConveyor(_intakeSpeed.get());
+    _cargoCannon.setFlywheel(_flywheelSpeed.get());
+    System.out.println("DOING THINGS");
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true

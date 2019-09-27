@@ -24,15 +24,15 @@ public class IntakeUntilCargoReachesFlywheel extends Command {
   protected void initialize() {
     // it should never take longer than 3 seconds total to shoot
     _cargoCannon.startConveyorIntake();
-    setTimeout(3);
+    setTimeout(5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // Once the ball is no longer detected, give it some seconds to exit the flywheel
+    // // Once the ball is no longer detected, give it some seconds to exit the flywheel
     if (!_cargoCannon.hasCargoInHoldingArea()) {
-      setTimeout(1.2);
+      setTimeout(2);
     }
   }
 
@@ -46,6 +46,7 @@ public class IntakeUntilCargoReachesFlywheel extends Command {
   @Override
   protected void end() {
     _cargoCannon.stopConveyor();
+    _cargoCannon.stopFlywheel();
   }
 
   // Called when another command which requires one or more of the same

@@ -7,16 +7,47 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.CargoCannon;
 
-public class ScoreCargo extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
+public class ScoreCargo extends Command {
+  CargoCannon _cargoCannon;
+
   public ScoreCargo(CargoCannon cargoCannon) {
-    addSequential(new SpinUpFlywheel(cargoCannon));
-    addSequential(new IntakeUntilCargoReachesFlywheel(cargoCannon));
-    addSequential(new StopCannon(cargoCannon));
+    requires(cargoCannon);
+    _cargoCannon = cargoCannon;
+  }
+
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+    _cargoCannon.startFlywheel();
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    if (timeSinceInitialized() > 0.8) {
+      _cargoCannon.startConveyorIntake();
+    }
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
   }
 }

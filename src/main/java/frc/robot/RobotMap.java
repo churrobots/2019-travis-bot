@@ -14,12 +14,12 @@ public class RobotMap {
   public final int conveyorVictorPWM = 1;
 
   public final int beakPCM = 0;
-  public final int beakDoubleSolenoidForwardChannel = 0;
-  public final int beakDoubleSolenoidReverseChannel = 3;
+  public final int beakDoubleSolenoidForwardChannel = 3;
+  public final int beakDoubleSolenoidReverseChannel = 0;
   
   public final int puncherPCM = 0;
-  public final int puncherDoubleSolenoidForwardChannel = 6;
-  public final int puncherDoubleSolenoidReverseChannel = 4;
+  public final int puncherDoubleSolenoidForwardChannel = 4;
+  public final int puncherDoubleSolenoidReverseChannel = 6;
 
   public final int wristPCM = 0;
   public final int wristDoubleSolenoidForwardChannel = 5;
@@ -28,6 +28,6 @@ public class RobotMap {
   public final int hookPCM = 1;
   public final int hookSolenoidChannel = 1;
 
-  public final int ballSensorDIO = 999;
+  public final int ballSensorDIO = 5;
 
 }

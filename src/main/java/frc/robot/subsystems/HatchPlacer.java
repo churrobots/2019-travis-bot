@@ -27,8 +27,8 @@ public class HatchPlacer extends Subsystem {
     );
 
     // TODO: confirm this outputs what we expect
-    Shuffleboard.getTab("Subsystems").add("HatchPlacer.beak", _beak);
-    Shuffleboard.getTab("Subsystems").add("HatchPlacer.puncher", _puncher);
+    // Shuffleboard.getTab("Subsystems").add("HatchPlacer.beak", _beak);
+    // Shuffleboard.getTab("Subsystems").add("HatchPlacer.puncher", _puncher);
   
   }
 

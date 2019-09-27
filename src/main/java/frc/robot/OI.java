@@ -7,12 +7,18 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.DriveAsTank;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.EjectHatch;
+import frc.robot.commands.FoldDown;
+import frc.robot.commands.FoldUp;
 import frc.robot.commands.LoadCargo;
 import frc.robot.commands.ScoreHatch;
+import frc.robot.commands.UnlockExtender;
 import frc.robot.commands.LoadHatch;
+import frc.robot.commands.LockExtender;
+import frc.robot.commands.ManualCannon;
+import frc.robot.commands.OpenBeak;
 import frc.robot.commands.ScoreCargo;
+import frc.robot.commands.OLDScoreCargo;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.CargoPicker;
 import frc.robot.subsystems.HatchPlacer;
 import frc.robot.subsystems.CargoCannon;
 import frc.robot.tools.Gamepad;
@@ -29,7 +35,6 @@ public class OI {
   private final Drivetrain _drivetrain;
   private final HatchPlacer _hatchPlacer;
   private final CargoCannon _cargoCannon;
-  private final CargoPicker _cargoPicker;
 
   public OI(StationMap stationMap, RobotMap robotMap) {
 
@@ -39,13 +44,11 @@ public class OI {
     _drivetrain = new Drivetrain(robotMap);
     _hatchPlacer = new HatchPlacer(robotMap);
     _cargoCannon = new CargoCannon(robotMap);
-    _cargoPicker = new CargoPicker(robotMap);
 
     // TODO: confirm this outputs what we expect
     Shuffleboard.getTab("Subsystems").add(_drivetrain);
     Shuffleboard.getTab("Subsystems").add(_hatchPlacer);
     Shuffleboard.getTab("Subsystems").add(_cargoCannon);
-    Shuffleboard.getTab("Subsystems").add(_cargoPicker);
 
     // TODO: confirm this outputs what we expect
     publishFieldsToShuffleboard("Maps", "RobotMap", robotMap);
@@ -86,14 +89,20 @@ public class OI {
       _driverGamepad.rightAnalogTrigger
     ));
 
-    _driverGamepad.leftBumper.whileHeld(new LoadHatch(_hatchPlacer));
-    _driverGamepad.rightBumper.whenPressed(new ScoreHatch(_hatchPlacer, _drivetrain));
-    _driverGamepad.buttonWest.whenPressed(new EjectHatch(_hatchPlacer));
+    _operatorGamepad.buttonWest.whileHeld(new LoadHatch(_hatchPlacer));
+    _operatorGamepad.buttonSouth.whileHeld(new ScoreHatch(_hatchPlacer));
 
-    _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon, _cargoPicker));
-    _operatorGamepad.rightBumper.whenPressed(new ScoreCargo(_cargoCannon));
-    _operatorGamepad.buttonWest.whenPressed(new EjectCargo(_cargoCannon));
-  
+    _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon));
+    _operatorGamepad.rightBumper.whileHeld(new ScoreCargo(_cargoCannon));
+
+    // _driverGamepad.leftBumper.whileHeld(new LoadHatch(_hatchPlacer));
+    // _driverGamepad.rightBumper.whenPressed(new ScoreHatch(_hatchPlacer, _drivetrain));
+    // _driverGamepad.buttonWest.whenPressed(new EjectHatch(_hatchPlacer));
+
+    // _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon, _cargoPicker));
+    // _operatorGamepad.rightBumper.whenPressed(new ScoreCargo(_cargoCannon));
+    // _operatorGamepad.buttonWest.whenPressed(new EjectCargo(_cargoCannon));
+
   }
 
 }

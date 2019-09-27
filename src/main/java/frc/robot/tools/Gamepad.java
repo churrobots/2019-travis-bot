@@ -18,11 +18,11 @@ public class Gamepad {
   public final Axis rightAnalogTrigger;
   // TODO: add other axes and buttons
 
-  public Gamepad(int driverStationPort, String gamepadType) throws InvalidGamepadTypeException {
+  public Gamepad(int driverStationPort, String gamepadType)  {
 
     Joystick gamepad = new Joystick(driverStationPort);
 
-    if (gamepadType == "LogitechF310") {
+    // if (gamepadType == "LogitechF310") {
 
       buttonSouth = new JoystickButton(gamepad, 1);
       buttonEast = new JoystickButton(gamepad, 2);
@@ -37,9 +37,9 @@ public class Gamepad {
 
       leftAnalogTrigger = new Axis(gamepad, 2);
       rightAnalogTrigger = new Axis(gamepad, 3);
-    }
+    // }
 
-    throw new InvalidGamepadTypeException(String.format("'%s' is not a recognized gamepad type", gamepadType));
+    // throw new InvalidGamepadTypeException(String.format("'%s' is not a recognized gamepad type", gamepadType));
 
   }
 

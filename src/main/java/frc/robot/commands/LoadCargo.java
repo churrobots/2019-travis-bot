@@ -7,19 +7,52 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.subsystems.CargoCannon;
-import frc.robot.subsystems.CargoPicker;
 
-public class LoadCargo extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
-  public LoadCargo(CargoCannon cargoCannon, CargoPicker cargoPicker) {
-    addSequential(new UnlockExtender(cargoPicker));
-    addParallel(new FoldDown(cargoPicker));
-    addSequential(new IntakeUntilCargoReachesHoldingArea(cargoCannon));
-    addSequential(new FoldUp(cargoPicker));
-    addSequential(new LockExtender(cargoPicker));
+public class LoadCargo extends Command {
+  CargoCannon _cargoCannon;
+
+  public LoadCargo(CargoCannon cargoCannon) {
+    requires(cargoCannon);
+    _cargoCannon = cargoCannon;
+  }
+
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+    _cargoCannon.unlock();
+    _cargoCannon.foldDown();
+    _cargoCannon.startConveyorIntake();
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    // TODO: implement auto-stop
+    // if (_cargoCannon.hasCargoInHoldingArea()) {
+    //   setTimeout(1);
+    // }
+    // if (isTimedOut()) {
+    //   _cargoCannon.stopConveyor();
+    // }
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
   }
 }

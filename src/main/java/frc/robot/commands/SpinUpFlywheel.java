@@ -22,13 +22,13 @@ public class SpinUpFlywheel extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(0.8);
+    setTimeout(1.1);
+    _cargoCannon.startFlywheel();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _cargoCannon.startFlywheel();
   }
 
   // Make this return true when this Command no longer needs to run execute()

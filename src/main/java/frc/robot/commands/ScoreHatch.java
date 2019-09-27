@@ -7,24 +7,44 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.HatchPlacer;
-import frc.robot.subsystems.Drivetrain;
 
-public class ScoreHatch extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
-  public ScoreHatch(HatchPlacer hatchPlacer, Drivetrain drivetrain) {
+public class ScoreHatch extends Command {
 
-    // Move forward while ejecting the hatch to get a solid attachment.
-    addParallel(new DriveForTime(drivetrain, 0.5, 0.5, 0.6));
-    addSequential(new EjectHatch(hatchPlacer));
+  private HatchPlacer _hatchPlacer;
 
-    // Move reverse while still ejecting the hatch to cleanly separate from the
-    // hatch before allowing the Hatch Placer to return to default position.
-    addParallel(new DriveForTime(drivetrain, -0.5, -0.5, 1.0));
-    addSequential(new EjectHatch(hatchPlacer));
+  public ScoreHatch(HatchPlacer hatchPlacer) {
+    requires(hatchPlacer);
+    _hatchPlacer = hatchPlacer;
+  }
 
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    _hatchPlacer.closeBeak();
+    _hatchPlacer.punch();
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return true;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
   }
 }

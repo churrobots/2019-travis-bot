@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.CargoPicker;
+import frc.robot.subsystems.CargoCannon;
 
 public class LockExtender extends Command {
-  private CargoPicker _cargoPicker;
+  private CargoCannon _cargoPicker;
 
-  public LockExtender(CargoPicker cargoPicker) {
+  public LockExtender(CargoCannon cargoPicker) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(cargoPicker);

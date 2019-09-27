@@ -29,9 +29,12 @@ public class Drivetrain extends Subsystem {
       new WPI_VictorSPX(robotMap.rightVictorMotor2CAN)
     );
 
+    leftMotors.setInverted(true);
+    rightMotors.setInverted(true);
+
     // TODO: confirm this outputs what we expect
-    Shuffleboard.getTab("Subsystems").add("Drivetrain.LeftMotors", leftMotors);
-    Shuffleboard.getTab("Subsystems").add("Drivetrain.RightMotors", leftMotors);
+    // Shuffleboard.getTab("Subsystems").add("Drivetrain.LeftMotors", leftMotors);
+    // Shuffleboard.getTab("Subsystems").add("Drivetrain.RightMotors", leftMotors);
 
     _differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
   

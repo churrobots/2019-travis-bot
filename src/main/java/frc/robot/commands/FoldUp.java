@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.CargoPicker;
+import frc.robot.subsystems.CargoCannon;
 
 public class FoldUp extends Command {
-  private CargoPicker _cargoPicker;
+  private CargoCannon _cargoPicker;
 
-  public FoldUp(CargoPicker cargoPicker) {
+  public FoldUp(CargoCannon cargoPicker) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(cargoPicker);
@@ -29,7 +29,7 @@ public class FoldUp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _cargoPicker.foldDown();
+    _cargoPicker.foldUp();
   }
 
   // Make this return true when this Command no longer needs to run execute()

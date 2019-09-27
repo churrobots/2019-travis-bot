@@ -10,25 +10,27 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.CargoCannon;
 
-public class FoldDown extends Command {
-  private CargoCannon _cargoPicker;
-  public FoldDown(CargoCannon cargoPicker) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(cargoPicker);
-    _cargoPicker = cargoPicker;
+public class ShutdownCannon extends Command {
+
+  private CargoCannon _shooter;
+
+  public ShutdownCannon(CargoCannon shooter) {
+    requires(shooter);
+    _shooter = shooter;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(1.0);
+    setTimeout(2.1);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _cargoPicker.foldDown();
+    _shooter.stopFlywheel();
+    _shooter.stopConveyor();
+    _shooter.foldUp();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,6 +42,7 @@ public class FoldDown extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _shooter.lock();
   }
 
   // Called when another command which requires one or more of the same

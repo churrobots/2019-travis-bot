@@ -22,20 +22,19 @@ public class LoadHatch extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _hatchPlacer.openBeak();
+    _hatchPlacer.closeBeak();
     _hatchPlacer.retractPuncher();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return true;
   }
 
   // Called once after isFinished returns true

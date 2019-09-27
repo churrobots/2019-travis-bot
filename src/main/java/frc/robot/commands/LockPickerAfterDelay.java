@@ -10,36 +10,38 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.CargoCannon;
 
-public class StopCannon extends Command {
+public class LockPickerAfterDelay extends Command {
+  private CargoCannon _cargoPicker;
 
-  private CargoCannon _shooter;
-
-  public StopCannon(CargoCannon shooter) {
-    requires(shooter);
-    _shooter = shooter;
+  public LockPickerAfterDelay(CargoCannon cargoPicker) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(cargoPicker);
+    _cargoPicker = cargoPicker;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    setTimeout(4);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _shooter.stopFlywheel();
-    _shooter.stopConveyor();
+    _cargoPicker.foldUp();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _cargoPicker.lock();
   }
 
   // Called when another command which requires one or more of the same
