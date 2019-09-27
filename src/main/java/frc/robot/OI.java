@@ -1,23 +1,12 @@
 package frc.robot;
 
-import java.lang.reflect.Field;
-
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.DriveAsTank;
-import frc.robot.commands.EjectCargo;
-import frc.robot.commands.EjectHatch;
-import frc.robot.commands.FoldDown;
-import frc.robot.commands.FoldUp;
 import frc.robot.commands.LoadCargo;
 import frc.robot.commands.ScoreHatch;
-import frc.robot.commands.UnlockExtender;
 import frc.robot.commands.LoadHatch;
-import frc.robot.commands.LockExtender;
-import frc.robot.commands.ManualCannon;
-import frc.robot.commands.OpenBeak;
 import frc.robot.commands.ScoreCargo;
-import frc.robot.commands.OLDScoreCargo;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchPlacer;
 import frc.robot.subsystems.CargoCannon;
@@ -45,37 +34,19 @@ public class OI {
     _hatchPlacer = new HatchPlacer(robotMap);
     _cargoCannon = new CargoCannon(robotMap);
 
-    // TODO: confirm this outputs what we expect
+    // Show the subsystems in a tab named "Subsystems" on Shuffleboard
+    // so we can monitor current Commands on each subsystem.
     Shuffleboard.getTab("Subsystems").add(_drivetrain);
     Shuffleboard.getTab("Subsystems").add(_hatchPlacer);
     Shuffleboard.getTab("Subsystems").add(_cargoCannon);
 
-    // TODO: confirm this outputs what we expect
-    publishFieldsToShuffleboard("Maps", "RobotMap", robotMap);
-    publishFieldsToShuffleboard("Maps", "StationMap", stationMap);
-
-  }
-
-  private void publishFieldsToShuffleboard(String shuffleBoardTabName, String objName, Object obj) {
-
-    for (Field field : obj.getClass().getDeclaredFields()) {
-      Object shuffleBoardValue = null;
-      String shuffleBoardTitle = String.format("%s.%s", objName, field.getName());
-      try {
-        shuffleBoardValue = field.get(obj);
-      } catch (IllegalArgumentException e) {
-        e.printStackTrace();
-      } catch (IllegalAccessException e) {
-        e.printStackTrace();
-      } finally {
-        Shuffleboard.getTab(shuffleBoardTabName).add(shuffleBoardTitle, shuffleBoardValue);
-      }
-    }
-  
   }
 
   public void useAutonomousMode() {
+
     Shuffleboard.addEventMarker("useAutonomousMode", EventImportance.kNormal);
+    // TODO: implement basic autonomous for CalGames?
+
   }
 
   public void useTeleopMode() {
@@ -94,14 +65,6 @@ public class OI {
 
     _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon));
     _operatorGamepad.rightBumper.whileHeld(new ScoreCargo(_cargoCannon));
-
-    // _driverGamepad.leftBumper.whileHeld(new LoadHatch(_hatchPlacer));
-    // _driverGamepad.rightBumper.whenPressed(new ScoreHatch(_hatchPlacer, _drivetrain));
-    // _driverGamepad.buttonWest.whenPressed(new EjectHatch(_hatchPlacer));
-
-    // _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon, _cargoPicker));
-    // _operatorGamepad.rightBumper.whenPressed(new ScoreCargo(_cargoCannon));
-    // _operatorGamepad.buttonWest.whenPressed(new EjectCargo(_cargoCannon));
 
   }
 

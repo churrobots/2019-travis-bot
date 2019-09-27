@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.CargoCannon;
 
 public class ScoreCargo extends Command {
-  CargoCannon _cargoCannon;
+
+  private final CargoCannon _cargoCannon;
+  private final double _timeItTakesForFlywheelToSpinUpInSeconds = 0.8;
 
   public ScoreCargo(CargoCannon cargoCannon) {
     requires(cargoCannon);
@@ -23,14 +23,14 @@ public class ScoreCargo extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _cargoCannon.startFlywheel();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (timeSinceInitialized() > 0.8) {
-      _cargoCannon.startConveyorIntake();
+    _cargoCannon.runFlywheel();
+    if (timeSinceInitialized() > _timeItTakesForFlywheelToSpinUpInSeconds) {
+      _cargoCannon.runConveyorIntake();
     }
   }
 
@@ -43,11 +43,14 @@ public class ScoreCargo extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _cargoCannon.stopFlywheel();
+    _cargoCannon.stopConveyor();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

@@ -53,7 +53,7 @@ public class CargoCannon extends Subsystem {
     _flywheel.set(x);
   }
 
-  public void startConveyorIntake() {
+  public void runConveyorIntake() {
     _conveyor.set(0.75);
   }
 
@@ -65,7 +65,7 @@ public class CargoCannon extends Subsystem {
     _conveyor.set(0);
   }
 
-  public void startFlywheel() {
+  public void runFlywheel() {
     _flywheel.set(1.0);
   }
 

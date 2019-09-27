@@ -8,11 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.subsystems.CargoCannon;
 
 public class LoadCargo extends Command {
-  CargoCannon _cargoCannon;
+  
+  private final CargoCannon _cargoCannon;
+  private final double _timeNeededForBallToSettleInSeconds = 0.5;
 
   public LoadCargo(CargoCannon cargoCannon) {
     requires(cargoCannon);
@@ -24,35 +25,34 @@ public class LoadCargo extends Command {
   protected void initialize() {
     _cargoCannon.unlock();
     _cargoCannon.foldDown();
-    _cargoCannon.startConveyorIntake();
+    _cargoCannon.runConveyorIntake();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // TODO: implement auto-stop
-    // if (_cargoCannon.hasCargoInHoldingArea()) {
-    //   setTimeout(1);
-    // }
-    // if (isTimedOut()) {
-    //   _cargoCannon.stopConveyor();
-    // }
+    // TODO: verify auto-stop works
+    if (_cargoCannon.hasCargoInHoldingArea()) {
+      setTimeout(_timeNeededForBallToSettleInSeconds);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _cargoCannon.stopConveyor();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

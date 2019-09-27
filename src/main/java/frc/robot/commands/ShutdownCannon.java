@@ -12,37 +12,37 @@ import frc.robot.subsystems.CargoCannon;
 
 public class ShutdownCannon extends Command {
 
-  private CargoCannon _shooter;
+  private final CargoCannon _cargoCannon;
+  private final double _timeItTakesForArmToFoldUpInSeconds = 2.1;
 
-  public ShutdownCannon(CargoCannon shooter) {
-    requires(shooter);
-    _shooter = shooter;
+  public ShutdownCannon(CargoCannon cargoCannon) {
+    requires(cargoCannon);
+    _cargoCannon = cargoCannon;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(2.1);
+    _cargoCannon.stopFlywheel();
+    _cargoCannon.stopConveyor();
+    _cargoCannon.foldUp();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _shooter.stopFlywheel();
-    _shooter.stopConveyor();
-    _shooter.foldUp();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return timeSinceInitialized() > _timeItTakesForArmToFoldUpInSeconds;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    _shooter.lock();
+    _cargoCannon.lock();
   }
 
   // Called when another command which requires one or more of the same

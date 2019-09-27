@@ -12,7 +12,7 @@ import frc.robot.subsystems.HatchPlacer;
 
 public class LoadHatch extends Command {
 
-  private HatchPlacer _hatchPlacer;
+  private final HatchPlacer _hatchPlacer;
 
   public LoadHatch(HatchPlacer hatchPlacer) {
     requires(hatchPlacer);
@@ -46,5 +46,6 @@ public class LoadHatch extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
