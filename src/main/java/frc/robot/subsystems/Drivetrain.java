@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.StopDriving;
 
@@ -32,11 +31,9 @@ public class Drivetrain extends Subsystem {
     leftMotors.setInverted(true);
     rightMotors.setInverted(true);
 
-    // TODO: confirm this outputs what we expect
-    // Shuffleboard.getTab("Subsystems").add("Drivetrain.LeftMotors", leftMotors);
-    // Shuffleboard.getTab("Subsystems").add("Drivetrain.RightMotors", leftMotors);
-
     _differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+    // TODO: add shuffleboard indicators for motor speed
   
   }
 

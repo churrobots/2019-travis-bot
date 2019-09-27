@@ -26,9 +26,7 @@ public class HatchPlacer extends Subsystem {
       robotMap.puncherDoubleSolenoidReverseChannel
     );
 
-    // TODO: confirm this outputs what we expect
-    // Shuffleboard.getTab("Subsystems").add("HatchPlacer.beak", _beak);
-    // Shuffleboard.getTab("Subsystems").add("HatchPlacer.puncher", _puncher);
+    // TODO: add shuffleboard indicators for piston states
   
   }
 

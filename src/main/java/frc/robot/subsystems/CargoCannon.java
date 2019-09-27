@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -17,6 +15,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.RobotMap;
 import frc.robot.commands.ShutdownCannon;
 
@@ -27,38 +26,36 @@ public class CargoCannon extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private SpeedController _conveyor;
-  private SpeedController _flywheel;
-  private DigitalInput _ballSensor;
+  private final SpeedController _conveyor;
+  private final SpeedController _flywheel;
   private final Solenoid _hook;
   private final DoubleSolenoid _wrist;
+  private final DigitalInput _ballSensor;
+  private final double _defaultConveyorSpeed = 0.75;
+  private final double _defaultFlywheelSpeed = 1.00;
 
   public CargoCannon(RobotMap robotMap) {
+
     _conveyor = new PWMVictorSPX(robotMap.conveyorVictorPWM);
     _flywheel = new PWMVictorSPX(robotMap.flywheelVictorPWM);
-    _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
 
     _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
+    _wrist = new DoubleSolenoid(robotMap.wristPCM, robotMap.wristDoubleSolenoidForwardChannel, robotMap.wristDoubleSolenoidReverseChannel);
 
-    _wrist = new DoubleSolenoid(robotMap.wristPCM, robotMap.wristDoubleSolenoidForwardChannel,
-        robotMap.wristDoubleSolenoidReverseChannel);
-    Shuffleboard.getTab("Subsystems").add("Light Sensor", _ballSensor);
-  }
+    _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
 
-  public void setConveyor(double x) {
-    _conveyor.set(x);
-  }
+    ShuffleboardTab tab = Shuffleboard.getTab("Subsystems");
+    tab.add("CargoCannon: Light Sensor", _ballSensor);
+    // TODO: add shuffleboard indicators for other components (e.g. motor speed)
 
-  public void setFlywheel(double x) {
-    _flywheel.set(x);
   }
 
   public void runConveyorIntake() {
-    _conveyor.set(0.75);
+    _conveyor.set(_defaultConveyorSpeed);
   }
 
-  public void startConveyorEject() {
-    _conveyor.set(-0.75);
+  public void runConveyorEject() {
+    _conveyor.set(-1 * _defaultConveyorSpeed);
   }
 
   public void stopConveyor() {
@@ -66,7 +63,7 @@ public class CargoCannon extends Subsystem {
   }
 
   public void runFlywheel() {
-    _flywheel.set(1.0);
+    _flywheel.set(_defaultFlywheelSpeed);
   }
 
   public void stopFlywheel() {
