@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -13,32 +14,40 @@ import frc.robot.commands.StopDriving;
 public class Drivetrain extends Subsystem {
 
   private final DifferentialDrive _differentialDrive;
+  private final WPI_TalonSRX _leftTalonMotor;
+  private final WPI_TalonSRX _rightTalonMotor;
 
   public Drivetrain(RobotMap robotMap) {
 
-    SpeedController leftMotors = new SpeedControllerGroup(
-      new WPI_TalonSRX(robotMap.leftTalonMotorCAN),
-      new WPI_VictorSPX(robotMap.leftVictorMotor1CAN),
-      new WPI_VictorSPX(robotMap.leftVictorMotor2CAN)
-    );
+    WPI_VictorSPX leftVictorMotor1 = new WPI_VictorSPX(robotMap.leftVictorMotor1CAN);
+    WPI_VictorSPX leftVictorMotor2 = new WPI_VictorSPX(robotMap.leftVictorMotor2CAN);
+    _leftTalonMotor = new WPI_TalonSRX(robotMap.leftTalonMotorCAN);
+    _leftTalonMotor.setInverted(true);
+    leftVictorMotor1.follow(_leftTalonMotor);
+    leftVictorMotor2.follow(_leftTalonMotor);
 
-    SpeedController rightMotors = new SpeedControllerGroup(
-      new WPI_TalonSRX(robotMap.rightTalonMotorCAN),
-      new WPI_VictorSPX(robotMap.rightVictorMotor1CAN),
-      new WPI_VictorSPX(robotMap.rightVictorMotor2CAN)
-    );
+    WPI_VictorSPX rightVictorMotor1 = new WPI_VictorSPX(robotMap.rightVictorMotor1CAN);
+    WPI_VictorSPX rightVictorMotor2 = new WPI_VictorSPX(robotMap.rightVictorMotor2CAN);
+    _rightTalonMotor = new WPI_TalonSRX(robotMap.rightTalonMotorCAN);
+    _rightTalonMotor.setInverted(true);
+    rightVictorMotor1.follow(_rightTalonMotor);
+    rightVictorMotor2.follow(_rightTalonMotor);
 
-    leftMotors.setInverted(true);
-    rightMotors.setInverted(true);
+    _differentialDrive = new DifferentialDrive(_leftTalonMotor, _rightTalonMotor);
 
-    _differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-
-    // TODO: add shuffleboard indicators for motor speed
+    // TODO: add shuffleboard indicators for motor speed and encoder positions
+    // https://seamonsters-2605.github.io/docs/reference/#using-encoders
   
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
     _differentialDrive.tankDrive(leftSpeed, rightSpeed);
+  }
+
+  public void tankDriveByRotations(double leftRotations, double rightRotations) {
+    // https://seamonsters-2605.github.io/docs/reference/#using-encoders
+    _leftTalonMotor.set(ControlMode.Position, leftRotations);
+    _rightTalonMotor.set(ControlMode.Position, rightRotations);
   }
 
   @Override
