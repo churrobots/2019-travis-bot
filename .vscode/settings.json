@@ -44,9 +44,6 @@
 
   // Keep workspace clean. Don't show git branch since we want to generally
   // keep workflow in Github Desktop for consistency.
-  "wpilib.autoStartRioLog": false,
-  "scm.alwaysShowProviders": false,
-  "git.enabled": false,
-  "git.enableStatusBarSync": false
+  "wpilib.autoStartRioLog": false
 
 }

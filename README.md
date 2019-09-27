@@ -6,7 +6,7 @@
     * If you have a PC: [Install Docker Desktop for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
     * Start Docker. You do _not_ need to log in if it asks you, just close it to skip.
     * [Install Visual Studio Code](https://code.visualstudio.com/download)
-    * Open Visual Studio Code → Click View...Extensions → Search for "Remote Development" → Click "Install"
+    * Open Visual Studio Code → Click View...Extensions → Search for "Remote - Containers" → Click "Install"
 
 2. Make sure you can collaborate using Github.
 
@@ -28,8 +28,9 @@
 
 # Todo
 
-* Figure out how to manage multi-user Github + VSCode checkouts with a pool of laptops
-  * could [create a MacOS user account that uses external USB](https://www.lifewire.com/move-macs-home-folder-new-location-2260157) and students can boot with that USB
-  * could [create separate user accounts](https://support.apple.com/guide/mac-help/set-up-other-users-mtusr001/mac), restrict app access, force github to clone to usb?, and have an "on logout" script that destroys github credentials
-  * could probably just configure VSCode and GH on main account, and then give Guest account access on the Macs with just those 2 apps. Downside is students will always have to clone the repo and find their branch every time (need to understand git), and push their code up every time (which is good practice at least)
-* Update our [CodeHS curriculum](https://codehs.com/section/80279/course/692/activity_progress/module/1309) to include some robot-specific and practice sessions
+1. Update our [CodeHS curriculum](https://codehs.com/section/80279/course/692/activity_progress/module/1309) to include some robot-specific and practice sessions
+2. Figure out how to manage multi-user Github + VSCode checkouts with a pool of laptops
+  * initially, we could use the `epa-robotics-team` account for all commits and pushes, keep that auth on each laptop, and just ask the kids to put their name in the commit message
+  * next we want to figure out how to make it work better for individual commits, getting comfortable using their own Github account
+  * idea: looks like we could symlink the `/Users/USERNAME/Documents/GitHub` path to USB drive, or at least clear this on login
+  * idea: can [clear github credentials](https://help.github.com/en/articles/updating-credentials-from-the-osx-keychain) on login each time using `git credential-osxkeychain erase`
