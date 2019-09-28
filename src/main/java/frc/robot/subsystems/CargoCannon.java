@@ -22,4 +22,7 @@ public class CargoCannon extends Subsystem {
   public void initDefaultCommand() {
     // setDefaultCommand(???);
   }
+  public boolean hasCargoInCannon();
+
+
 }
