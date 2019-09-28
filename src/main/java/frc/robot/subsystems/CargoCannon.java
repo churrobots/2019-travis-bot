@@ -29,8 +29,9 @@ public class CargoCannon extends Subsystem {
   }
 
   @Override
-  public void initDefaultCommand() {
-    // setDefaultCommand(???);
+  public void initDefaultCommand(RobotMap robotMap) {
+    _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
+   
   }
   public boolean hasCargoInCannon(){
     return _ballSensor.get();
