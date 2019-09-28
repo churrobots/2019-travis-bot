@@ -36,6 +36,7 @@ public class CargoCannon extends Subsystem {
     _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
     _wrist = new DoubleSolenoid(robotMap.wristDoubleSolenoidForwardChannel, robotMap.wristDoubleSolenoidReverseChannel);
     _conveyor = new PWMVictorSPX(robotMap.conveyorVictorPWM);
+    _flywheel
   }
   @Override
   public void initDefaultCommand(){
@@ -62,7 +63,7 @@ public class CargoCannon extends Subsystem {
   public void stopConveyor(){
     _conveyor.set(0);
   }
-  
+
   
   
 
