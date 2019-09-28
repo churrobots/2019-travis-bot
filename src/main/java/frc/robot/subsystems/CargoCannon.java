@@ -22,6 +22,7 @@ public class CargoCannon extends Subsystem {
   private final DigitalInput _ballSensor;
   private final Solenoid _hook;
   private final DoubleSolenoid _wrist;
+  private final 
 
 
 
@@ -51,6 +52,10 @@ public class CargoCannon extends Subsystem {
   public void lowerConveyor(){
     _wrist.set(Value.kForward);
   }
+  public void raiseConveyor(){
+    _wrist.set(Value.kReverse);
+  }
+  public
   
   
 
