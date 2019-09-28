@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
+
 /**
  * Add your docs here.
  */
@@ -22,7 +23,9 @@ public class CargoCannon extends Subsystem {
   public void initDefaultCommand() {
     // setDefaultCommand(???);
   }
-  public boolean hasCargoInCannon();
+  public boolean hasCargoInCannon(){
+    return _ballSensor.get();
+  }
 
 
 }
