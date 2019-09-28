@@ -34,32 +34,16 @@ public class DriveAsTank extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    double minSpeed = 0.7;
-    double boostModifier = _boostAxis.get() * (1 - minSpeed) + minSpeed;
-    // TODO: implement brownout prevention
-    double leftSpeed = _leftAxis.get() * boostModifier;
-    double rightSpeed = _rightAxis.get() * boostModifier;
-    _drivetrain.tankDrive(leftSpeed, rightSpeed);
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    _drivetrain.tankDrive(0, 0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    end();
-  }
 }

@@ -13,7 +13,6 @@ import frc.robot.subsystems.CargoCannon;
 public class ScoreCargo extends Command {
 
   private final CargoCannon _cargoCannon;
-  private final double _timeItTakesForFlywheelToSpinUpInSeconds = 0.8;
 
   public ScoreCargo(CargoCannon cargoCannon) {
     requires(cargoCannon);
@@ -28,29 +27,16 @@ public class ScoreCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    _cargoCannon.runFlywheel();
-    if (timeSinceInitialized() > _timeItTakesForFlywheelToSpinUpInSeconds) {
-      _cargoCannon.runConveyorIntake();
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    _cargoCannon.stopFlywheel();
-    _cargoCannon.stopConveyor();
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    end();
-  }
 }
