@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -34,7 +35,7 @@ public class CargoCannon extends Subsystem {
     _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
     _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
     _wrist = new DoubleSolenoid(robotMap.wristDoubleSolenoidForwardChannel, robotMap.wristDoubleSolenoidReverseChannel);
-    _conveyor = new SpeedController(robotMap.conveyorVictorPWM);
+    _conveyor = new PWMVictorSPX(robotMap.conveyorVictorPWM);
   }
   @Override
   public void initDefaultCommand(){
@@ -55,7 +56,13 @@ public class CargoCannon extends Subsystem {
   public void raiseConveyor(){
     _wrist.set(Value.kReverse);
   }
-  public
+  public void startConveyor(){
+    _conveyor.set(1.0);
+  }
+  public void stopConveyor(){
+    _conveyor.set(0);
+  }
+  
   
   
 
