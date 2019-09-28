@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -19,6 +20,7 @@ import frc.robot.RobotMap;
 public class CargoCannon extends Subsystem {
   private final DigitalInput _ballSensor;
   private final Solenoid _hook;
+  private final DoubleSolenoid _wrist;
 
 
 
@@ -28,6 +30,8 @@ public class CargoCannon extends Subsystem {
   public CargoCannon(RobotMap robotMap) {
     _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
     _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
+    _wrist = new DoubleSolenoid(robotMap.wristDoubleSolenoidForwardChannel, robotMap.wristDoubleSolenoidReverseChannel);
+
   }
 
   @Override
@@ -42,6 +46,9 @@ public class CargoCannon extends Subsystem {
   }
   public void retractHook(){
     _hook.set(false);
+  }
+  public void lowerConveyor(){
+    _wrist
   }
   
 
