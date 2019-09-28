@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -48,8 +49,9 @@ public class CargoCannon extends Subsystem {
     _hook.set(false);
   }
   public void lowerConveyor(){
-    _wrist
+    _wrist.set(Value.kForward);
   }
+  
   
 
 }
