@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -15,6 +17,13 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class CargoCannon extends Subsystem {
+  private final DigitalInput _ballSensor;
+  private final Solenoid _hook;
+
+
+
+
+
 
   public CargoCannon(RobotMap robotMap) {
   }
@@ -25,7 +34,13 @@ public class CargoCannon extends Subsystem {
   }
   public boolean hasCargoInCannon(){
     return _ballSensor.get();
+  } 
+  public void releaseHook(){
+    _hook.set(true);
   }
-
+  public void retractHook(){
+    _hook.set(false);
+  }
+  
 
 }
