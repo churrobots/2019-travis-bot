@@ -41,6 +41,10 @@ public class Drivetrain extends Subsystem {
     _differentialDrive.tankDrive(leftSpeed, rightSpeed);
   }
 
+  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
+    _differentialDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn);
+  }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new StopDriving(this));
