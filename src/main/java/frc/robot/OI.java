@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.DriveAsTank;
@@ -39,6 +40,9 @@ public class OI {
     Shuffleboard.getTab("Subsystems").add(_drivetrain);
     Shuffleboard.getTab("Subsystems").add(_hatchPlacer);
     Shuffleboard.getTab("Subsystems").add(_cargoCannon);
+
+    // Start the camera.
+    CameraServer.getInstance().startAutomaticCapture();
 
   }
 
