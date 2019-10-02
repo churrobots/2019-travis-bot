@@ -21,7 +21,7 @@
         * Make sure "Current Repository" (upper right) is `travis-bot`
         * Make sure "Current Branch" (next one) is **not** `master`. If it is, create a new branch for your work.
     * Click "Open in Visual Studio Code"
-    * Visual Studio Code should show an alert in the bottom-right → Click "Reopen in Container"
+    * Click on the green lower-left corner and run "Remote-Containers: Reopen in Container"
     * **To build:** Click the "W" icon in the upper-right → "WPILib: Build Robot Code"
     * **To deploy:** Click the "W" icon in the upper-right → "WPILib: Deploy Robot Code"
         * _Note: you need to be connected to the robot's wifi radio to do this_
