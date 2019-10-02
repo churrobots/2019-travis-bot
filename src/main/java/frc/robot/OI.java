@@ -25,6 +25,7 @@ public class OI {
   private final Drivetrain _drivetrain;
   private final HatchPlacer _hatchPlacer;
   private final CargoCannon _cargoCannon;
+  private boolean _initializedTeleop = false;
 
   public OI(StationMap stationMap, RobotMap robotMap) {
 
@@ -41,35 +42,30 @@ public class OI {
     Shuffleboard.getTab("Subsystems").add(_hatchPlacer);
     Shuffleboard.getTab("Subsystems").add(_cargoCannon);
 
-    // Start the camera.
-    CameraServer.getInstance().startAutomaticCapture();
-
-  }
-
-  public void useAutonomousMode() {
-
-    Shuffleboard.addEventMarker("useAutonomousMode", EventImportance.kNormal);
-    // TODO: implement basic autonomous for CalGames?
-    useTeleopMode();
-
   }
 
   public void useTeleopMode() {
 
-    Shuffleboard.addEventMarker("useTeleopMode", EventImportance.kNormal);
+    if (!_initializedTeleop) {
 
-    _drivetrain.setDefaultCommand(new DriveAsTank(
-      _drivetrain,
-      _driverGamepad.leftYAxis,
-      _driverGamepad.rightYAxis,
-      _driverGamepad.rightAnalogTrigger
-    ));
- 
-    _operatorGamepad.buttonWest.whileHeld(new LoadHatch(_hatchPlacer));
-    _operatorGamepad.buttonSouth.whileHeld(new ScoreHatch(_hatchPlacer));
+      CameraServer.getInstance().startAutomaticCapture();
 
-    _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon));
-    _operatorGamepad.rightBumper.whileHeld(new ScoreCargo(_cargoCannon));
+      _drivetrain.setDefaultCommand(new DriveAsTank(
+        _drivetrain,
+        _driverGamepad.leftYAxis,
+        _driverGamepad.rightYAxis,
+        _driverGamepad.rightAnalogTrigger
+      ));
+  
+      _operatorGamepad.buttonWest.whileHeld(new LoadHatch(_hatchPlacer));
+      _operatorGamepad.buttonSouth.whileHeld(new ScoreHatch(_hatchPlacer));
+
+      _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon));
+      _operatorGamepad.rightBumper.whileHeld(new ScoreCargo(_cargoCannon));
+      
+      _initializedTeleop = true;
+
+    }
 
   }
 

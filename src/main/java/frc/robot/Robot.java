@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    _oi.useTeleopMode();
   }
 
   @Override
@@ -39,7 +40,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    _oi.useAutonomousMode();
+    _oi.useTeleopMode();
   }
 
   @Override
@@ -55,6 +56,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+  }
+
+  @Override
+  public void testInit() {
+    _oi.useTeleopMode();
   }
 
   @Override
