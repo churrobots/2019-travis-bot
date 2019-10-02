@@ -13,6 +13,7 @@ public class Gamepad {
   public final Button leftBumper;
   public final Button rightBumper;
   public final Axis leftYAxis;
+  public final Axis leftXAxis;
   public final Axis rightYAxis;
   public final Axis leftAnalogTrigger;
   public final Axis rightAnalogTrigger;
@@ -32,6 +33,7 @@ public class Gamepad {
       leftBumper = new JoystickButton(gamepad, 5);
       rightBumper = new JoystickButton(gamepad, 6);
 
+      leftXAxis = new Axis(gamepad, 0);
       leftYAxis = new Axis(gamepad, 1);
       rightYAxis = new Axis(gamepad, 5);
 
