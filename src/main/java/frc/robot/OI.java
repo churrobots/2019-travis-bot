@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import frc.robot.commands.DriveAsCar;
 import frc.robot.commands.DriveAsTank;
 import frc.robot.commands.LoadCargo;
 import frc.robot.commands.ScoreHatch;
@@ -51,6 +50,7 @@ public class OI {
 
     Shuffleboard.addEventMarker("useAutonomousMode", EventImportance.kNormal);
     // TODO: implement basic autonomous for CalGames?
+    useTeleopMode();
 
   }
 
@@ -64,15 +64,7 @@ public class OI {
       _driverGamepad.rightYAxis,
       _driverGamepad.rightAnalogTrigger
     ));
-
-    // TODO: test this drive to see if it feels natural for aiming the bot
-    _driverGamepad.buttonWest.whileHeld(new DriveAsCar(
-      _drivetrain,
-      _driverGamepad.leftAnalogTrigger,
-      _driverGamepad.rightAnalogTrigger,
-      _driverGamepad.leftYAxis
-    ));
-
+ 
     _operatorGamepad.buttonWest.whileHeld(new LoadHatch(_hatchPlacer));
     _operatorGamepad.buttonSouth.whileHeld(new ScoreHatch(_hatchPlacer));
 
