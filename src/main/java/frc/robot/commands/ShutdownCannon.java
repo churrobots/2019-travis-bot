@@ -33,12 +33,15 @@ public class ShutdownCannon extends Command {
   protected void execute() {
     _cargoCannon.stopFlywheel();
     _cargoCannon.stopConveyor();
+    if (timeSinceInitialized() > _timeItTakesForArmToFoldUpInSeconds) {
+      _cargoCannon.lock();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return timeSinceInitialized() > _timeItTakesForArmToFoldUpInSeconds;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -51,5 +54,6 @@ public class ShutdownCannon extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
