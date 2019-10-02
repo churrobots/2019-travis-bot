@@ -44,6 +44,10 @@
 
   // Keep workspace clean. Don't show git branch since we want to generally
   // keep workflow in Github Desktop for consistency.
-  "wpilib.autoStartRioLog": false
+  "wpilib.autoStartRioLog": false,
+
+  // Don't show Extension recommendations, it confuses the fact
+  // that development should happen in the container.
+  "extensions.ignoreRecommendations": true
 
 }
