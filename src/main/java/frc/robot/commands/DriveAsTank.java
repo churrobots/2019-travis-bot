@@ -36,7 +36,8 @@ public class DriveAsTank extends Command {
   protected void execute() {
 
     double minSpeed = 0.7;
-    double boostModifier = _boostAxis.get() * (1 - minSpeed) + minSpeed;
+    double maxSpeed = 0.9;
+    double boostModifier = _boostAxis.get() * (maxSpeed - minSpeed) + minSpeed;
     // TODO: implement brownout prevention
     double leftSpeed = _leftAxis.get() * boostModifier;
     double rightSpeed = _rightAxis.get() * boostModifier;
