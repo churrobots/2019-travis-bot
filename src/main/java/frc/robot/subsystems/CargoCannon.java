@@ -31,8 +31,8 @@ public class CargoCannon extends Subsystem {
   private final Solenoid _hook;
   private final DoubleSolenoid _wrist;
   private final DigitalInput _ballSensor;
-  private final double _defaultConveyorSpeed = 0.75;
-  private final double _defaultFlywheelSpeed = 1.00;
+  private final double _defaultConveyorSpeed = 0.40;
+  private final double _defaultFlywheelSpeed = 0.90;
 
   public CargoCannon(RobotMap robotMap) {
 
@@ -41,6 +41,9 @@ public class CargoCannon extends Subsystem {
 
     _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
     _wrist = new DoubleSolenoid(robotMap.wristPCM, robotMap.wristDoubleSolenoidForwardChannel, robotMap.wristDoubleSolenoidReverseChannel);
+    
+    Shuffleboard.getTab("Subsystems").add(_hook);
+    Shuffleboard.getTab("Subsystems").add(_wrist);
 
     _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
 
