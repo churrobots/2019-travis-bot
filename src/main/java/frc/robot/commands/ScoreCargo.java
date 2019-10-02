@@ -43,8 +43,6 @@ public class ScoreCargo extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    _cargoCannon.stopFlywheel();
-    _cargoCannon.stopConveyor();
   }
 
   // Called when another command which requires one or more of the same
