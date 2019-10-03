@@ -41,14 +41,14 @@ public class CargoCannon extends Subsystem {
 
     _hook = new Solenoid(robotMap.hookPCM, robotMap.hookSolenoidChannel);
     _wrist = new DoubleSolenoid(robotMap.wristPCM, robotMap.wristDoubleSolenoidForwardChannel, robotMap.wristDoubleSolenoidReverseChannel);
-    
-    Shuffleboard.getTab("Subsystems").add(_hook);
-    Shuffleboard.getTab("Subsystems").add(_wrist);
 
     _ballSensor = new DigitalInput(robotMap.ballSensorDIO);
 
     ShuffleboardTab tab = Shuffleboard.getTab("Subsystems");
     tab.add("CargoCannon: Light Sensor", _ballSensor);
+    tab.add("CargoCannon: Hook", _hook);
+    tab.add("CargoCannon: Wrist", _wrist);
+
     // TODO: add shuffleboard indicators for other components (e.g. motor speed)
 
   }

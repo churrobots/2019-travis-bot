@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.RobotMap;
 import frc.robot.commands.HoldHatch;
 
@@ -25,7 +27,9 @@ public class HatchPlacer extends Subsystem {
       robotMap.puncherDoubleSolenoidReverseChannel
     );
 
-    // TODO: add shuffleboard indicators for piston states
+    ShuffleboardTab tab = Shuffleboard.getTab("Subsystems");
+    tab.add("HatchPlacer: Beak", _beak);
+    tab.add("HatchPlacer: Puncher", _puncher);
   
   }
 
