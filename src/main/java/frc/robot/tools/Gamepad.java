@@ -23,6 +23,7 @@ public class Gamepad {
 
     Joystick gamepad = new Joystick(driverStationPort);
 
+    // FIXME: allow different gamepad types
     // if (gamepadType == "LogitechF310") {
 
       buttonSouth = new JoystickButton(gamepad, 1);

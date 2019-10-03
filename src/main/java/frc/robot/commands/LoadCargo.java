@@ -13,7 +13,6 @@ import frc.robot.subsystems.CargoCannon;
 public class LoadCargo extends Command {
   
   private final CargoCannon _cargoCannon;
-  private final double _timeNeededForBallToSettleInSeconds = 0.5;
 
   public LoadCargo(CargoCannon cargoCannon) {
     requires(cargoCannon);

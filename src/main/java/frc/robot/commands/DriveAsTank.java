@@ -17,6 +17,8 @@ public class DriveAsTank extends Command {
   private final Axis _leftAxis;
   private final Axis _rightAxis;
   private final Axis _boostAxis;
+  private final double _minSpeed = 0.7;
+  private final double _maxSpeed = 0.9;
 
   public DriveAsTank(Drivetrain drivetrain, Axis leftAxis, Axis rightAxis, Axis boostAxis) {
     requires(drivetrain);
@@ -35,10 +37,7 @@ public class DriveAsTank extends Command {
   @Override
   protected void execute() {
 
-    double minSpeed = 0.7;
-    double maxSpeed = 0.9;
-    double boostModifier = _boostAxis.get() * (maxSpeed - minSpeed) + minSpeed;
-    // TODO: implement brownout prevention
+    double boostModifier = _boostAxis.get() * (_maxSpeed - _minSpeed) + _minSpeed;
     double leftSpeed = _leftAxis.get() * boostModifier;
     double rightSpeed = _rightAxis.get() * boostModifier;
     _drivetrain.tankDrive(leftSpeed, rightSpeed);
