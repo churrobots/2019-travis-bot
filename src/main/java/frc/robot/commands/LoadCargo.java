@@ -22,13 +22,13 @@ public class LoadCargo extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _cargoCannon.unlock();
-    _cargoCannon.foldDown();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    _cargoCannon.unlock();
+    _cargoCannon.foldDown();
     _cargoCannon.runConveyorIntake();
   }
 

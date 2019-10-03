@@ -13,7 +13,7 @@ import frc.robot.subsystems.CargoCannon;
 public class ScoreCargo extends Command {
 
   private final CargoCannon _cargoCannon;
-  private final double _timeItTakesForFlywheelToSpinUpInSeconds = 0.8;
+  private final double _timeItTakesForFlywheelToSpinUpInSeconds = 0.6;
 
   public ScoreCargo(CargoCannon cargoCannon) {
     requires(cargoCannon);

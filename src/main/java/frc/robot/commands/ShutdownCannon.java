@@ -23,9 +23,6 @@ public class ShutdownCannon extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _cargoCannon.stopFlywheel();
-    _cargoCannon.stopConveyor();
-    _cargoCannon.foldUp();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -33,6 +30,7 @@ public class ShutdownCannon extends Command {
   protected void execute() {
     _cargoCannon.stopFlywheel();
     _cargoCannon.stopConveyor();
+    _cargoCannon.foldUp();
     if (timeSinceInitialized() > _timeItTakesForArmToFoldUpInSeconds) {
       _cargoCannon.lock();
     }
