@@ -24,7 +24,7 @@ public class OI {
   private final Drivetrain _drivetrain;
   private final HatchPlacer _hatchPlacer;
   private final CargoCannon _cargoCannon;
-  private boolean _initializedTeleop = false;
+  private boolean _initializedGamepadControls = false;
 
   public OI(StationMap stationMap, RobotMap robotMap) {
 
@@ -34,6 +34,9 @@ public class OI {
     _drivetrain = new Drivetrain(robotMap);
     _hatchPlacer = new HatchPlacer(robotMap);
     _cargoCannon = new CargoCannon(robotMap);
+
+    // Run the camera for Shuffleboard as soon as we've connected everything.
+    CameraServer.getInstance().startAutomaticCapture();
 
     // Show the subsystems in a tab named "Subsystems" on Shuffleboard
     // so we can monitor current Commands on each subsystem.
@@ -45,9 +48,10 @@ public class OI {
 
   public void useTeleopMode() {
 
-    if (!_initializedTeleop) {
-
-      CameraServer.getInstance().startAutomaticCapture();
+    // Don't initialize the gamepad controls more than once, it will cause the
+    // commands to "fight" each other in the queue, canceling each other out.
+    // This was the source of our CargoCannon-not-running issues.
+    if (!_initializedGamepadControls) {
 
       _drivetrain.setDefaultCommand(new DriveAsTank(
         _drivetrain,
@@ -62,7 +66,7 @@ public class OI {
       _operatorGamepad.leftBumper.whileHeld(new LoadCargo(_cargoCannon));
       _operatorGamepad.rightBumper.whileHeld(new ScoreCargo(_cargoCannon));
       
-      _initializedTeleop = true;
+      _initializedGamepadControls = true;
 
     }
 
