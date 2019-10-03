@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.DriveAsTank;
 import frc.robot.commands.LoadCargo;
 import frc.robot.commands.ScoreHatch;
+import frc.robot.commands.DriveAsCar;
 import frc.robot.commands.LoadHatch;
 import frc.robot.commands.ScoreCargo;
 import frc.robot.subsystems.Drivetrain;
@@ -60,6 +61,13 @@ public class OI {
         _driverGamepad.rightAnalogTrigger
       ));
   
+      _driverGamepad.leftBumper.whileHeld(new DriveAsCar(
+        _drivetrain,
+        _driverGamepad.leftXAxis,
+        _driverGamepad.rightYAxis,
+        _driverGamepad.rightAnalogTrigger
+      ));
+
       _operatorGamepad.buttonWest.whileHeld(new LoadHatch(_hatchPlacer));
       _operatorGamepad.buttonSouth.whileHeld(new ScoreHatch(_hatchPlacer));
 
