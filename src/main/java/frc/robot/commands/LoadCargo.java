@@ -41,6 +41,7 @@ public class LoadCargo extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    _cargoCannon.stopConveyor();
   }
 
 }
